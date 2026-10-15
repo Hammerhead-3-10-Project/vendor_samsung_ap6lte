@@ -24,11 +24,9 @@ GENERATED = {'build.prop', 'default.prop', 'etc/vintf/manifest.xml', 'etc/vintf/
 # app/ holds TimeService.apk and the leftovers of QDMA (the Trustonic trustlet in app/mcRegistry is a blob and stays).
 SKIP_DIRS = ('lost+found', 'odm', 'overlay', 'app/TimeService', 'app/QDMA', 'app/QDMA-UI')
 SELINUX_DIR = 'etc/selinux'
-SELINUX_TOP = {'plat_pub_versioned.cil', 'plat_sepolicy_vers.txt', 'precompiled_sepolicy',
-               'precompiled_sepolicy.plat_sepolicy_and_mapping.sha256',
-               'precompiled_sepolicy.product_sepolicy_and_mapping.sha256', 'product_sepolicy_and_mapping.sha256',
-               'vendor_file_contexts', 'vendor_hwservice_contexts', 'vendor_mac_permissions.xml',
-               'vendor_property_contexts', 'vendor_seapp_contexts', 'vendor_sepolicy.cil', 'vndservice_contexts'}
+SELINUX_TOP = {'plat_pub_versioned.cil', 'plat_sepolicy_vers.txt', 'vendor_file_contexts', 'vendor_hwservice_contexts',
+               'vendor_mac_permissions.xml', 'vendor_property_contexts', 'vendor_seapp_contexts',
+               'vendor_sepolicy.cil', 'vndservice_contexts'}
 
 # properties the build writes into vendor/build.prop itself
 GEN_PROP_PREFIX = ('ro.vendor.build.', 'ro.product.vendor.', 'ro.vendor.product.cpu.', 'ro.bootimage.build.',
@@ -89,8 +87,12 @@ with open(os.path.join(dst, 'a6plte-vendor.mk'), 'w') as f:
     f.write('A6PLTE_VENDOR_PATH := %s\n\n' % PATH)
     f.write('PRODUCT_COPY_FILES += \\\n')
     f.write(' \\\n'.join('    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/%s:$(TARGET_COPY_OUT_VENDOR)/%s' % (c, c) for c in copies))
-    f.write('\n\n# symbolic links, empty directories and the Samsung SELinux policy (see Android.mk)\n')
-    f.write('PRODUCT_PACKAGES += a6plte_vendor_links \\\n    ' + ' \\\n    '.join('a6plte_' + s for s in sorted(SELINUX_TOP)) + '\n')
+    f.write('\n\n# symbolic links and empty directories (module in Android.mk); the Samsung SELinux policy is copied over the\n')
+    f.write('# generated one by a build step in Android.mk\n')
+    f.write('PRODUCT_PACKAGES += a6plte_vendor_links\n')
+    f.write('# init compiles the policy at boot (plat from system + the Samsung vendor policy). A precompiled policy built\n')
+    f.write('# here would use the stub types of sepolicy/ and must not exist.\n')
+    f.write('PRODUCT_PRECOMPILED_SEPOLICY := false\n')
 
 # properties: everything of build.prop + default.prop that the build does not generate
 props = []
@@ -124,12 +126,23 @@ with open(os.path.join(dst, 'Android.mk'), 'w') as f:
     f.write('LOCAL_MODULE_STEM := a6plte_vendor_links.list\nLOCAL_SRC_FILES := links.list\n')
     f.write('LOCAL_POST_INSTALL_CMD := bash $(LOCAL_PATH)/make-links.sh $(LOCAL_PATH) $(TARGET_OUT_VENDOR)\n')
     f.write('include $(BUILD_PREBUILT)\n\n')
-    f.write('# The Samsung vendor SELinux policy replaces the files system/sepolicy generates for the vendor.\n')
-    for s in sorted(SELINUX_TOP):
-        f.write('include $(CLEAR_VARS)\nLOCAL_MODULE := a6plte_%s\nLOCAL_MODULE_CLASS := ETC\nLOCAL_MODULE_TAGS := optional\n' % s)
-        f.write('LOCAL_VENDOR_MODULE := true\nLOCAL_MODULE_RELATIVE_PATH := selinux\n')
-        f.write('LOCAL_MODULE_STEM := %s\nLOCAL_SRC_FILES := proprietary/selinux/%s\n' % (s, s))
-        f.write('LOCAL_OVERRIDES_PACKAGES := %s\ninclude $(BUILD_PREBUILT)\n\n' % s)
+    f.write('''# The Samsung vendor SELinux policy replaces the files system/sepolicy generates for the vendor. The build already
+# has a rule that installs each of these files, so a second module cannot install them: copy the Samsung ones over the
+# generated ones as a step that runs after those are installed and before vendor.img is made.
+a6plte_selinux_files := %s
+a6plte_selinux_stamp := $(PRODUCT_OUT)/obj/PACKAGING/a6plte_vendor_selinux_intermediates/copied.stamp
+$(a6plte_selinux_stamp): PRIVATE_SRC := $(LOCAL_PATH)/proprietary/selinux
+$(a6plte_selinux_stamp): PRIVATE_DST := $(TARGET_OUT_VENDOR)/etc/selinux
+$(a6plte_selinux_stamp): PRIVATE_FILES := $(a6plte_selinux_files)
+# selinux_policy_nonsystem is phony: this step runs on every build, after the generated files are installed
+$(a6plte_selinux_stamp): $(addprefix $(LOCAL_PATH)/proprietary/selinux/,$(a6plte_selinux_files)) selinux_policy_nonsystem
+\t@echo "Samsung vendor SELinux policy: $(PRIVATE_DST)"
+\t$(hide) mkdir -p $(PRIVATE_DST) $(dir $@)
+\t$(hide) for f in $(PRIVATE_FILES); do cmp -s $(PRIVATE_SRC)/$$f $(PRIVATE_DST)/$$f || { rm -f $(PRIVATE_DST)/$$f; cp $(PRIVATE_SRC)/$$f $(PRIVATE_DST)/$$f; }; done
+\t$(hide) touch $@
+$(PRODUCT_OUT)/vendor.img: $(a6plte_selinux_stamp)
+
+''' % ' '.join(sorted(SELINUX_TOP)))
     f.write('endif\n')
 
 print('files', len(copies), 'selinux', len(selinux), 'links', len(links), 'empty dirs', len(dirs), 'props', len(seen))

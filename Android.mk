@@ -14,148 +14,20 @@ LOCAL_SRC_FILES := links.list
 LOCAL_POST_INSTALL_CMD := bash $(LOCAL_PATH)/make-links.sh $(LOCAL_PATH) $(TARGET_OUT_VENDOR)
 include $(BUILD_PREBUILT)
 
-# The Samsung vendor SELinux policy replaces the files system/sepolicy generates for the vendor.
-include $(CLEAR_VARS)
-LOCAL_MODULE := a6plte_plat_pub_versioned.cil
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_VENDOR_MODULE := true
-LOCAL_MODULE_RELATIVE_PATH := selinux
-LOCAL_MODULE_STEM := plat_pub_versioned.cil
-LOCAL_SRC_FILES := proprietary/selinux/plat_pub_versioned.cil
-LOCAL_OVERRIDES_PACKAGES := plat_pub_versioned.cil
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := a6plte_plat_sepolicy_vers.txt
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_VENDOR_MODULE := true
-LOCAL_MODULE_RELATIVE_PATH := selinux
-LOCAL_MODULE_STEM := plat_sepolicy_vers.txt
-LOCAL_SRC_FILES := proprietary/selinux/plat_sepolicy_vers.txt
-LOCAL_OVERRIDES_PACKAGES := plat_sepolicy_vers.txt
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := a6plte_precompiled_sepolicy
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_VENDOR_MODULE := true
-LOCAL_MODULE_RELATIVE_PATH := selinux
-LOCAL_MODULE_STEM := precompiled_sepolicy
-LOCAL_SRC_FILES := proprietary/selinux/precompiled_sepolicy
-LOCAL_OVERRIDES_PACKAGES := precompiled_sepolicy
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := a6plte_precompiled_sepolicy.plat_sepolicy_and_mapping.sha256
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_VENDOR_MODULE := true
-LOCAL_MODULE_RELATIVE_PATH := selinux
-LOCAL_MODULE_STEM := precompiled_sepolicy.plat_sepolicy_and_mapping.sha256
-LOCAL_SRC_FILES := proprietary/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256
-LOCAL_OVERRIDES_PACKAGES := precompiled_sepolicy.plat_sepolicy_and_mapping.sha256
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := a6plte_precompiled_sepolicy.product_sepolicy_and_mapping.sha256
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_VENDOR_MODULE := true
-LOCAL_MODULE_RELATIVE_PATH := selinux
-LOCAL_MODULE_STEM := precompiled_sepolicy.product_sepolicy_and_mapping.sha256
-LOCAL_SRC_FILES := proprietary/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256
-LOCAL_OVERRIDES_PACKAGES := precompiled_sepolicy.product_sepolicy_and_mapping.sha256
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := a6plte_product_sepolicy_and_mapping.sha256
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_VENDOR_MODULE := true
-LOCAL_MODULE_RELATIVE_PATH := selinux
-LOCAL_MODULE_STEM := product_sepolicy_and_mapping.sha256
-LOCAL_SRC_FILES := proprietary/selinux/product_sepolicy_and_mapping.sha256
-LOCAL_OVERRIDES_PACKAGES := product_sepolicy_and_mapping.sha256
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := a6plte_vendor_file_contexts
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_VENDOR_MODULE := true
-LOCAL_MODULE_RELATIVE_PATH := selinux
-LOCAL_MODULE_STEM := vendor_file_contexts
-LOCAL_SRC_FILES := proprietary/selinux/vendor_file_contexts
-LOCAL_OVERRIDES_PACKAGES := vendor_file_contexts
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := a6plte_vendor_hwservice_contexts
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_VENDOR_MODULE := true
-LOCAL_MODULE_RELATIVE_PATH := selinux
-LOCAL_MODULE_STEM := vendor_hwservice_contexts
-LOCAL_SRC_FILES := proprietary/selinux/vendor_hwservice_contexts
-LOCAL_OVERRIDES_PACKAGES := vendor_hwservice_contexts
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := a6plte_vendor_mac_permissions.xml
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_VENDOR_MODULE := true
-LOCAL_MODULE_RELATIVE_PATH := selinux
-LOCAL_MODULE_STEM := vendor_mac_permissions.xml
-LOCAL_SRC_FILES := proprietary/selinux/vendor_mac_permissions.xml
-LOCAL_OVERRIDES_PACKAGES := vendor_mac_permissions.xml
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := a6plte_vendor_property_contexts
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_VENDOR_MODULE := true
-LOCAL_MODULE_RELATIVE_PATH := selinux
-LOCAL_MODULE_STEM := vendor_property_contexts
-LOCAL_SRC_FILES := proprietary/selinux/vendor_property_contexts
-LOCAL_OVERRIDES_PACKAGES := vendor_property_contexts
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := a6plte_vendor_seapp_contexts
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_VENDOR_MODULE := true
-LOCAL_MODULE_RELATIVE_PATH := selinux
-LOCAL_MODULE_STEM := vendor_seapp_contexts
-LOCAL_SRC_FILES := proprietary/selinux/vendor_seapp_contexts
-LOCAL_OVERRIDES_PACKAGES := vendor_seapp_contexts
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := a6plte_vendor_sepolicy.cil
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_VENDOR_MODULE := true
-LOCAL_MODULE_RELATIVE_PATH := selinux
-LOCAL_MODULE_STEM := vendor_sepolicy.cil
-LOCAL_SRC_FILES := proprietary/selinux/vendor_sepolicy.cil
-LOCAL_OVERRIDES_PACKAGES := vendor_sepolicy.cil
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := a6plte_vndservice_contexts
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_VENDOR_MODULE := true
-LOCAL_MODULE_RELATIVE_PATH := selinux
-LOCAL_MODULE_STEM := vndservice_contexts
-LOCAL_SRC_FILES := proprietary/selinux/vndservice_contexts
-LOCAL_OVERRIDES_PACKAGES := vndservice_contexts
-include $(BUILD_PREBUILT)
+# The Samsung vendor SELinux policy replaces the files system/sepolicy generates for the vendor. The build already
+# has a rule that installs each of these files, so a second module cannot install them: copy the Samsung ones over the
+# generated ones as a step that runs after those are installed and before vendor.img is made.
+a6plte_selinux_files := plat_pub_versioned.cil plat_sepolicy_vers.txt vendor_file_contexts vendor_hwservice_contexts vendor_mac_permissions.xml vendor_property_contexts vendor_seapp_contexts vendor_sepolicy.cil vndservice_contexts
+a6plte_selinux_stamp := $(PRODUCT_OUT)/obj/PACKAGING/a6plte_vendor_selinux_intermediates/copied.stamp
+$(a6plte_selinux_stamp): PRIVATE_SRC := $(LOCAL_PATH)/proprietary/selinux
+$(a6plte_selinux_stamp): PRIVATE_DST := $(TARGET_OUT_VENDOR)/etc/selinux
+$(a6plte_selinux_stamp): PRIVATE_FILES := $(a6plte_selinux_files)
+# selinux_policy_nonsystem is phony: this step runs on every build, after the generated files are installed
+$(a6plte_selinux_stamp): $(addprefix $(LOCAL_PATH)/proprietary/selinux/,$(a6plte_selinux_files)) selinux_policy_nonsystem
+	@echo "Samsung vendor SELinux policy: $(PRIVATE_DST)"
+	$(hide) mkdir -p $(PRIVATE_DST) $(dir $@)
+	$(hide) for f in $(PRIVATE_FILES); do cmp -s $(PRIVATE_SRC)/$$f $(PRIVATE_DST)/$$f || { rm -f $(PRIVATE_DST)/$$f; cp $(PRIVATE_SRC)/$$f $(PRIVATE_DST)/$$f; }; done
+	$(hide) touch $@
+$(PRODUCT_OUT)/vendor.img: $(a6plte_selinux_stamp)
 
 endif

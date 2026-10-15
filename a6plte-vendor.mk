@@ -429,6 +429,10 @@ PRODUCT_COPY_FILES += \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/seccomp_policy/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/seccomp_policy/mediaextractor.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaextractor.policy \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/seccomp_policy/mediaextractor_sec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaextractor_sec.policy \
+    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/selinux/precompiled_sepolicy:$(TARGET_COPY_OUT_VENDOR)/etc/selinux/precompiled_sepolicy \
+    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256:$(TARGET_COPY_OUT_VENDOR)/etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256 \
+    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256:$(TARGET_COPY_OUT_VENDOR)/etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256 \
+    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/selinux/product_sepolicy_and_mapping.sha256:$(TARGET_COPY_OUT_VENDOR)/etc/selinux/product_sepolicy_and_mapping.sha256 \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/selinux/sk/authorize.xml:$(TARGET_COPY_OUT_VENDOR)/etc/selinux/sk/authorize.xml \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/snap_gpu_kernel_32.bin:$(TARGET_COPY_OUT_VENDOR)/etc/snap_gpu_kernel_32.bin \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/somxreg.conf:$(TARGET_COPY_OUT_VENDOR)/etc/somxreg.conf \
@@ -2490,18 +2494,9 @@ PRODUCT_COPY_FILES += \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/tima_measurement_info:$(TARGET_COPY_OUT_VENDOR)/tima_measurement_info \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc
 
-# symbolic links, empty directories and the Samsung SELinux policy (see Android.mk)
-PRODUCT_PACKAGES += a6plte_vendor_links \
-    a6plte_plat_pub_versioned.cil \
-    a6plte_plat_sepolicy_vers.txt \
-    a6plte_precompiled_sepolicy \
-    a6plte_precompiled_sepolicy.plat_sepolicy_and_mapping.sha256 \
-    a6plte_precompiled_sepolicy.product_sepolicy_and_mapping.sha256 \
-    a6plte_product_sepolicy_and_mapping.sha256 \
-    a6plte_vendor_file_contexts \
-    a6plte_vendor_hwservice_contexts \
-    a6plte_vendor_mac_permissions.xml \
-    a6plte_vendor_property_contexts \
-    a6plte_vendor_seapp_contexts \
-    a6plte_vendor_sepolicy.cil \
-    a6plte_vndservice_contexts
+# symbolic links and empty directories (module in Android.mk); the Samsung SELinux policy is copied over the
+# generated one by a build step in Android.mk
+PRODUCT_PACKAGES += a6plte_vendor_links
+# init compiles the policy at boot (plat from system + the Samsung vendor policy). A precompiled policy built
+# here would use the stub types of sepolicy/ and must not exist.
+PRODUCT_PRECOMPILED_SEPOLICY := false
