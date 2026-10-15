@@ -14,6 +14,22 @@ Output (everything is regenerated, nothing is edited by hand):
 import os, shutil, sys
 
 src, dst = os.path.abspath(sys.argv[1]), os.path.abspath(sys.argv[2])
+LINEAGE_OUT = os.path.abspath(sys.argv[3]) if len(sys.argv) > 3 else None   # out/ of a Lineage build (to refresh the snapshot)
+INSTALLS = os.path.join(dst, 'lineage_vendor_installs.txt')
+if LINEAGE_OUT:
+    # Every file the Lineage build has a rule for under /vendor (Soong and Android.mk modules), from the ninja files.
+    import glob, re
+    pat = re.compile(r'out/target/product/[^/\s:$|]+/vendor/[^\s:$|]+')
+    found = set()
+    for f in glob.glob(LINEAGE_OUT + '/*.ninja') + [LINEAGE_OUT + '/soong/build.ninja']:
+        if not os.path.isfile(f):
+            continue
+        for line in open(f, errors='ignore'):
+            if line.startswith('build ') and '/vendor/' in line:
+                for m in pat.findall(line.split(':')[0]):
+                    found.add(m.split('/vendor/', 1)[1])
+    open(INSTALLS, 'w').write('\n'.join(sorted(found)) + '\n')
+lineage_installs = set(open(INSTALLS).read().split()) if os.path.exists(INSTALLS) else set()
 PATH = 'vendor/samsung/a6plte'
 
 # Files the build generates itself from tracked sources (manifest/matrix from the device tree, fs_config from
@@ -28,13 +44,20 @@ SELINUX_TOP = {'plat_pub_versioned.cil', 'plat_sepolicy_vers.txt', 'vendor_file_
                'vendor_mac_permissions.xml', 'vendor_property_contexts', 'vendor_seapp_contexts',
                'vendor_sepolicy.cil', 'vndservice_contexts'}
 
+# AOSP userland that the Lineage build compiles from source and installs in /vendor (shell_and_utilities_vendor, ...):
+# the stock copies are not used, Lineage's are.
+LINEAGE_WINS = {'bin/awk', 'bin/grep', 'bin/sh', 'bin/toolbox', 'bin/toybox_vendor', 'bin/logwrapper', 'bin/dumpsys',
+                'bin/cplay', 'bin/vndservice', 'bin/vndservicemanager', 'etc/init/vndservicemanager.rc', 'etc/mkshrc',
+                'etc/passwd', 'etc/group', 'etc/NOTICE.xml.gz', 'etc/permissions/handheld_core_hardware.xml'}
+LINK_TARGETS_LINEAGE = {'toybox_vendor', 'toolbox'}   # the toybox applet links are created by the toybox_vendor module
+
 # properties the build writes into vendor/build.prop itself
 GEN_PROP_PREFIX = ('ro.vendor.build.', 'ro.product.vendor.', 'ro.vendor.product.cpu.', 'ro.bootimage.build.',
                    'ro.product.first_api_level', 'ro.product.board', 'ro.board.platform')
 
 for d in ('proprietary',):
     shutil.rmtree(os.path.join(dst, d), ignore_errors=True)
-copies, selinux, links, dirs = [], [], [], []
+copies, overlay, skipped_aosp, selinux, links, dirs = [], [], [], [], [], []
 for root, dnames, fnames in os.walk(src):
     rel = os.path.relpath(root, src)
     rel = '' if rel == '.' else rel
@@ -53,8 +76,11 @@ for root, dnames, fnames in os.walk(src):
             if rel == SELINUX_DIR and name in SELINUX_TOP:
                 selinux.append(r)
                 out = os.path.join(dst, 'proprietary', 'selinux', name)
+            elif r in LINEAGE_WINS:
+                skipped_aosp.append(r)
+                continue
             else:
-                copies.append(r)
+                (overlay if r in lineage_installs else copies).append(r)
                 out = os.path.join(dst, 'proprietary', 'vendor', r)
             os.makedirs(os.path.dirname(out), exist_ok=True)
             shutil.copyfile(p, out)
@@ -75,10 +101,15 @@ for pf in sorted(glob.glob(os.path.join(dst, 'patches', '*.patch'))):
     subprocess.run(['patch', '-p1', '--no-backup-if-mismatch', '-d', os.path.join(dst, 'proprietary', 'vendor'),
                     '-i', pf], check=True, stdout=subprocess.DEVNULL)
     print('applied', os.path.basename(pf))
-links.sort(); dirs.sort(); copies.sort()
+before = len(links)
+links = [(p, t) for p, t in links if not (os.path.basename(t) in LINK_TARGETS_LINEAGE)]
+dropped_links = before - len(links)
+links.sort(); dirs.sort(); copies.sort(); overlay.sort()
 
 with open(os.path.join(dst, 'links.list'), 'w') as f:
     f.writelines('%s\t%s\n' % l for l in links)
+with open(os.path.join(dst, 'overlay.list'), 'w') as f:
+    f.writelines(o + '\n' for o in overlay)
 with open(os.path.join(dst, 'dirs.list'), 'w') as f:
     f.writelines(d + '\n' for d in dirs)
 
@@ -126,23 +157,29 @@ with open(os.path.join(dst, 'Android.mk'), 'w') as f:
     f.write('LOCAL_MODULE_STEM := a6plte_vendor_links.list\nLOCAL_SRC_FILES := links.list\n')
     f.write('LOCAL_POST_INSTALL_CMD := bash $(LOCAL_PATH)/make-links.sh $(LOCAL_PATH) $(TARGET_OUT_VENDOR)\n')
     f.write('include $(BUILD_PREBUILT)\n\n')
-    f.write('''# The Samsung vendor SELinux policy replaces the files system/sepolicy generates for the vendor. The build already
-# has a rule that installs each of these files, so a second module cannot install them: copy the Samsung ones over the
-# generated ones as a step that runs after those are installed and before vendor.img is made.
+    f.write('''# Stock files that the build also has a rule for, and the Samsung SELinux policy.
+#
+# Two modules (or a module and PRODUCT_COPY_FILES) cannot install the same path (kati: "overriding commands for
+# target"), and some stock files have the name of a module that Lineage builds from AOSP sources (the default HAL
+# services and implementations: android.hardware.keymaster@3.0-service, ...). For those the Samsung build is the one
+# that works with the rest of the stock vendor, so it is copied over the generated one after the build has installed
+# everything under /vendor (installed-files-vendor.txt depends on all of it) and before vendor.img is made.
+a6plte_overlay_files := %s
 a6plte_selinux_files := %s
-a6plte_selinux_stamp := $(PRODUCT_OUT)/obj/PACKAGING/a6plte_vendor_selinux_intermediates/copied.stamp
-$(a6plte_selinux_stamp): PRIVATE_SRC := $(LOCAL_PATH)/proprietary/selinux
-$(a6plte_selinux_stamp): PRIVATE_DST := $(TARGET_OUT_VENDOR)/etc/selinux
-$(a6plte_selinux_stamp): PRIVATE_FILES := $(a6plte_selinux_files)
-# selinux_policy_nonsystem is phony: this step runs on every build, after the generated files are installed
-$(a6plte_selinux_stamp): $(addprefix $(LOCAL_PATH)/proprietary/selinux/,$(a6plte_selinux_files)) selinux_policy_nonsystem
-\t@echo "Samsung vendor SELinux policy: $(PRIVATE_DST)"
-\t$(hide) mkdir -p $(PRIVATE_DST) $(dir $@)
-\t$(hide) for f in $(PRIVATE_FILES); do cmp -s $(PRIVATE_SRC)/$$f $(PRIVATE_DST)/$$f || { rm -f $(PRIVATE_DST)/$$f; cp $(PRIVATE_SRC)/$$f $(PRIVATE_DST)/$$f; }; done
+a6plte_overlay_stamp := $(PRODUCT_OUT)/obj/PACKAGING/a6plte_vendor_overlay_intermediates/copied.stamp
+$(a6plte_overlay_stamp): PRIVATE_SRC := $(LOCAL_PATH)/proprietary
+$(a6plte_overlay_stamp): PRIVATE_DST := $(TARGET_OUT_VENDOR)
+$(a6plte_overlay_stamp): PRIVATE_OVERLAY := $(a6plte_overlay_files)
+$(a6plte_overlay_stamp): PRIVATE_SELINUX := $(a6plte_selinux_files)
+$(a6plte_overlay_stamp): $(addprefix $(LOCAL_PATH)/proprietary/vendor/,$(a6plte_overlay_files)) $(addprefix $(LOCAL_PATH)/proprietary/selinux/,$(a6plte_selinux_files)) $(PRODUCT_OUT)/installed-files-vendor.txt
+\t@echo "Samsung vendor files over the generated ones: $(words $(PRIVATE_OVERLAY)) + $(words $(PRIVATE_SELINUX)) SELinux"
+\t$(hide) mkdir -p $(PRIVATE_DST)/etc/selinux $(dir $@)
+\t$(hide) for f in $(PRIVATE_OVERLAY); do mkdir -p $(PRIVATE_DST)/$$(dirname $$f); rm -f $(PRIVATE_DST)/$$f; cp -p $(PRIVATE_SRC)/vendor/$$f $(PRIVATE_DST)/$$f; done
+\t$(hide) for f in $(PRIVATE_SELINUX); do rm -f $(PRIVATE_DST)/etc/selinux/$$f; cp $(PRIVATE_SRC)/selinux/$$f $(PRIVATE_DST)/etc/selinux/$$f; done
 \t$(hide) touch $@
-$(PRODUCT_OUT)/vendor.img: $(a6plte_selinux_stamp)
+$(PRODUCT_OUT)/vendor.img: $(a6plte_overlay_stamp)
 
-''' % ' '.join(sorted(SELINUX_TOP)))
+''' % (' '.join(overlay), ' '.join(sorted(SELINUX_TOP))))
     f.write('endif\n')
 
-print('files', len(copies), 'selinux', len(selinux), 'links', len(links), 'empty dirs', len(dirs), 'props', len(seen))
+print('copy', len(copies), 'overlay', len(overlay), 'lineage-built', len(skipped_aosp), 'toybox links dropped', dropped_links, 'selinux', len(selinux), 'links', len(links), 'empty dirs', len(dirs), 'props', len(seen))
