@@ -1,6 +1,6 @@
 DockObserver_service
 IProxyService_service
-Types: 1229
+Types: 1217
 accessibility_service
 account_service
 activity_service
@@ -11,10 +11,6 @@ adb_service
 adbd
 adbd_exec
 adbd_socket
-adbroot
-adbroot_data_file
-adbroot_exec
-adbroot_service
 alarm_service
 anr_data_file
 apex_data_file
@@ -311,7 +307,6 @@ fwk_scheduler_hwservice
 fwk_sensor_hwservice
 fwk_stats_hwservice
 fwmarkd_socket
-gallery_app
 gatekeeper_data_file
 gatekeeper_service
 gatekeeperd
@@ -423,9 +418,6 @@ hal_light_hwservice
 hal_lineage_camera_motor_default
 hal_lineage_camera_motor_default_exec
 hal_lineage_camera_motor_hwservice
-hal_lineage_fastcharge_default
-hal_lineage_fastcharge_default_exec
-hal_lineage_fastcharge_hwservice
 hal_lineage_fod_default
 hal_lineage_fod_default_exec
 hal_lineage_fod_hwservice
@@ -438,9 +430,6 @@ hal_lineage_powershare_hwservice
 hal_lineage_touch_default
 hal_lineage_touch_default_exec
 hal_lineage_touch_hwservice
-hal_lineage_trust_default
-hal_lineage_trust_default_exec
-hal_lineage_trust_hwservice
 hal_lowpan_default
 hal_lowpan_default_exec
 hal_lowpan_hwservice
@@ -590,13 +579,8 @@ kmsg_device
 labeledfs
 last_boot_reason_prop
 launcherapps_service
-lineage_audio_service
 lineage_hardware_service
 lineage_livedisplay_service
-lineage_performance_service
-lineage_profile_service
-lineage_trust_service
-lineage_weather_service
 llkd
 llkd_exec
 llkd_prop
@@ -666,6 +650,9 @@ migrate_legacy_obb_data_exec
 misc_block_device
 misc_logd_file
 misc_user_data_file
+misc_writer
+misc_writer_exec
+misc_writer_prop
 mkfs
 mkfs_exec
 mmc_prop
@@ -768,6 +755,8 @@ pipefs
 platform_app
 pm_prop
 pmsg_device
+pocket_judge_sysfs
+pocket_service
 port
 port_device
 postinstall
@@ -798,7 +787,6 @@ proc_buddyinfo
 proc_cmdline
 proc_cpu_alignment
 proc_cpuinfo
-proc_deny_new_usb
 proc_dirty
 proc_diskstats
 proc_drop_caches
