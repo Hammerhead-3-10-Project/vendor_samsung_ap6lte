@@ -10,3 +10,6 @@ TARGET_FS_CONFIG_GEN += vendor/samsung/a6plte/config.fs
 # file_contexts of the stock vendor + stubs for its types: needed to label and check vendor.img at build time.
 # (The policy that runs on the phone is the Samsung one in proprietary/selinux, see Android.mk.)
 BOARD_SEPOLICY_DIRS += vendor/samsung/a6plte/sepolicy
+
+# custom users/groups of the stock vendor (vendor_qrtr, vendor_thermal, ...), generated from its etc/passwd
+TARGET_FS_CONFIG_GEN += vendor/samsung/a6plte/aids.fs

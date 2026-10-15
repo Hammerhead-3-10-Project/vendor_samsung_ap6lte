@@ -9,6 +9,7 @@ by the ROM build from the files in this tree. Nothing is flashed or patched on t
 | `proprietary/selinux/` | the Samsung vendor SELinux policy; replaces the files `system/sepolicy` generates for the vendor |
 | `links.list`, `dirs.list`, `make-links.sh` | symbolic links and empty mount-point directories (`PRODUCT_COPY_FILES` can create neither) |
 | `sepolicy/` | `file_contexts` of the stock vendor (rules the build lacks) + stub `.te` types, so the build can label and check `vendor.img` |
+| `aids.fs` | the 24 custom users/groups of the stock vendor (`etc/passwd`), generated; init scripts name them |
 | `config.fs` | owners and file capabilities the default `fs_config` rules do not give (3 binaries) |
 | `vendor.prop` | vendor properties of the stock firmware that the build does not generate (`TARGET_VENDOR_PROP`) |
 | `patches/` | changes made on top of the stock files, applied by the generator (each one explains why) |
