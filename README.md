@@ -15,6 +15,9 @@ by the ROM build from the files in this tree. Nothing is flashed or patched on t
 | `gen_vendor.py` | regenerates everything above from a dump of the stock `/vendor` |
 | `a6plte-vendor.mk`, `Android.mk`, `BoardConfigVendor.mk` | generated / hand-written build glue |
 
+Only blobs go in. Left out on purpose: `app/TimeService` (Samsung app), the leftovers of `app/QDMA*`, and `overlay/`
+(AOSP RROs that Lineage builds and installs itself). The Trustonic trustlet in `app/mcRegistry` is a blob and stays.
+
 Not copied because the build generates them from tracked sources: `build.prop`, `default.prop`,
 `etc/vintf/manifest.xml`, `etc/vintf/compatibility_matrix.xml` (device tree), `etc/fs_config_*` (`config.fs`).
 

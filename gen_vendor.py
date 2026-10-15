@@ -20,7 +20,9 @@ PATH = 'vendor/samsung/a6plte'
 # config.fs, build.prop/default.prop from the board config + vendor.prop) or that are only placeholders.
 GENERATED = {'build.prop', 'default.prop', 'etc/vintf/manifest.xml', 'etc/vintf/compatibility_matrix.xml',
              'etc/fs_config_dirs', 'etc/fs_config_files'}
-SKIP_DIRS = ('lost+found', 'odm')          # odm: empty placeholder of the stock image
+# Only blobs go in: no apps and no overlays. overlay/ holds AOSP RROs that Lineage builds and installs itself;
+# app/ holds TimeService.apk and the leftovers of QDMA (the Trustonic trustlet in app/mcRegistry is a blob and stays).
+SKIP_DIRS = ('lost+found', 'odm', 'overlay', 'app/TimeService', 'app/QDMA', 'app/QDMA-UI')
 SELINUX_DIR = 'etc/selinux'
 SELINUX_TOP = {'plat_pub_versioned.cil', 'plat_sepolicy_vers.txt', 'precompiled_sepolicy',
                'precompiled_sepolicy.plat_sepolicy_and_mapping.sha256',
@@ -49,6 +51,7 @@ for root, dnames, fnames in os.walk(src):
         elif os.path.isfile(p):
             if r in GENERATED:
                 continue
+            assert not r.endswith('.apk'), 'apk in the vendor tree: ' + r
             if rel == SELINUX_DIR and name in SELINUX_TOP:
                 selinux.append(r)
                 out = os.path.join(dst, 'proprietary', 'selinux', name)
@@ -64,6 +67,8 @@ for root, dnames, fnames in os.walk(src):
         p = os.path.join(root, d)
         if os.path.islink(p):
             r = os.path.relpath(p, src)
+            if any(r == k or r.startswith(k + '/') for k in SKIP_DIRS):
+                continue
             if (r, os.readlink(p)) not in links:
                 links.append((r, os.readlink(p)))
 # changes made on top of the stock files (patches/*.patch, unified diffs relative to proprietary/vendor)

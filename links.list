@@ -1,5 +1,3 @@
-app/QDMA-UI/lib/arm/libvndfwk_detect_jni.qti.so	/vendor/lib/libvndfwk_detect_jni.qti.so
-app/QDMA/lib/arm/libvndfwk_detect_jni.qti.so	/vendor/lib/libvndfwk_detect_jni.qti.so
 bin/acpi	toybox_vendor
 bin/base64	toybox_vendor
 bin/basename	toybox_vendor

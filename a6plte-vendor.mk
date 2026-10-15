@@ -3,7 +3,6 @@
 A6PLTE_VENDOR_PATH := vendor/samsung/a6plte
 
 PRODUCT_COPY_FILES += \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/app/TimeService/TimeService.apk:$(TARGET_COPY_OUT_VENDOR)/app/TimeService/TimeService.apk \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/app/mcRegistry/07010000000000000000000000000000.tlbin:$(TARGET_COPY_OUT_VENDOR)/app/mcRegistry/07010000000000000000000000000000.tlbin \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/bin/ATFWD-daemon:$(TARGET_COPY_OUT_VENDOR)/bin/ATFWD-daemon \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/bin/PktRspTest:$(TARGET_COPY_OUT_VENDOR)/bin/PktRspTest \
@@ -2488,54 +2487,6 @@ PRODUCT_COPY_FILES += \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/lib/vendor.samsung.hardware.wifi.hostapd@2.0.so:$(TARGET_COPY_OUT_VENDOR)/lib/vendor.samsung.hardware.wifi.hostapd@2.0.so \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/lib/vendor.samsung.hardware.wifi.supplicant@2.0.so:$(TARGET_COPY_OUT_VENDOR)/lib/vendor.samsung.hardware.wifi.supplicant@2.0.so \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/lib/vendor.samsung.hardware.wifi@2.0.so:$(TARGET_COPY_OUT_VENDOR)/lib/vendor.samsung.hardware.wifi@2.0.so \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/AccentColorBlack/AccentColorBlackOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/AccentColorBlack/AccentColorBlackOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/AccentColorCinnamon/AccentColorCinnamonOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/AccentColorCinnamon/AccentColorCinnamonOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/AccentColorGreen/AccentColorGreenOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/AccentColorGreen/AccentColorGreenOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/AccentColorOcean/AccentColorOceanOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/AccentColorOcean/AccentColorOceanOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/AccentColorOrchid/AccentColorOrchidOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/AccentColorOrchid/AccentColorOrchidOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/AccentColorPurple/AccentColorPurpleOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/AccentColorPurple/AccentColorPurpleOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/AccentColorSpace/AccentColorSpaceOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/AccentColorSpace/AccentColorSpaceOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/DisplayCutoutEmulationCorner/DisplayCutoutEmulationCornerOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/DisplayCutoutEmulationCorner/DisplayCutoutEmulationCornerOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/DisplayCutoutEmulationDouble/DisplayCutoutEmulationDoubleOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/DisplayCutoutEmulationDouble/DisplayCutoutEmulationDoubleOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/DisplayCutoutEmulationTall/DisplayCutoutEmulationTallOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/DisplayCutoutEmulationTall/DisplayCutoutEmulationTallOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/FontNotoSerifSource/FontNotoSerifSourceOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/FontNotoSerifSource/FontNotoSerifSourceOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/GmsConfigOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/GmsConfigOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/GmsGsaConfigOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/GmsGsaConfigOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/GoogleExtServicesConfigOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/GoogleExtServicesConfigOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/GooglePermissionControllerFrameworkOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/GooglePermissionControllerFrameworkOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/GooglePermissionControllerOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/GooglePermissionControllerOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/IconPackCircularAndroid/IconPackCircularAndroidOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/IconPackCircularAndroid/IconPackCircularAndroidOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/IconPackCircularLauncher/IconPackCircularLauncherOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/IconPackCircularLauncher/IconPackCircularLauncherOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/IconPackCircularSettings/IconPackCircularSettingsOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/IconPackCircularSettings/IconPackCircularSettingsOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/IconPackCircularSystemUI/IconPackCircularSystemUIOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/IconPackCircularSystemUI/IconPackCircularSystemUIOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/IconPackCircularThemePicker/IconPackCircularThemePickerOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/IconPackCircularThemePicker/IconPackCircularThemePickerOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/IconPackFilledAndroid/IconPackFilledAndroidOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/IconPackFilledAndroid/IconPackFilledAndroidOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/IconPackFilledLauncher/IconPackFilledLauncherOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/IconPackFilledLauncher/IconPackFilledLauncherOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/IconPackFilledSettings/IconPackFilledSettingsOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/IconPackFilledSettings/IconPackFilledSettingsOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/IconPackFilledSystemUI/IconPackFilledSystemUIOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/IconPackFilledSystemUI/IconPackFilledSystemUIOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/IconPackFilledThemePicker/IconPackFilledThemePickerOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/IconPackFilledThemePicker/IconPackFilledThemePickerOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/IconPackRoundedAndroid/IconPackRoundedAndroidOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/IconPackRoundedAndroid/IconPackRoundedAndroidOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/IconPackRoundedLauncher/IconPackRoundedLauncherOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/IconPackRoundedLauncher/IconPackRoundedLauncherOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/IconPackRoundedSettings/IconPackRoundedSettingsOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/IconPackRoundedSettings/IconPackRoundedSettingsOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/IconPackRoundedSystemUI/IconPackRoundedSystemUIOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/IconPackRoundedSystemUI/IconPackRoundedSystemUIOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/IconShapeRoundedRect/IconShapeRoundedRectOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/IconShapeRoundedRect/IconShapeRoundedRectOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/IconShapeSquare/IconShapeSquareOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/IconShapeSquare/IconShapeSquareOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/IconShapeSquircle/IconShapeSquircleOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/IconShapeSquircle/IconShapeSquircleOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/IconShapeTeardrop/IconShapeTeardropOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/IconShapeTeardrop/IconShapeTeardropOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/NavigationBarMode2Button/NavigationBarMode2ButtonOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/NavigationBarMode2Button/NavigationBarMode2ButtonOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/NavigationBarMode3Button/NavigationBarMode3ButtonOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/NavigationBarMode3Button/NavigationBarMode3ButtonOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/NavigationBarModeGestural/NavigationBarModeGesturalOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/NavigationBarModeGestural/NavigationBarModeGesturalOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/NavigationBarModeGesturalExtraWideBack/NavigationBarModeGesturalOverlayExtraWideBack.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/NavigationBarModeGesturalExtraWideBack/NavigationBarModeGesturalOverlayExtraWideBack.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/NavigationBarModeGesturalNarrowBack/NavigationBarModeGesturalOverlayNarrowBack.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/NavigationBarModeGesturalNarrowBack/NavigationBarModeGesturalOverlayNarrowBack.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/NavigationBarModeGesturalNoHint/NavigationBarModeGesturalNoHintOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/NavigationBarModeGesturalNoHint/NavigationBarModeGesturalNoHintOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/NavigationBarModeGesturalNoHintExtraWideBack/NavigationBarModeGesturalNoHintOverlayExtraWideBack.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/NavigationBarModeGesturalNoHintExtraWideBack/NavigationBarModeGesturalNoHintOverlayExtraWideBack.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/NavigationBarModeGesturalNoHintNarrowBack/NavigationBarModeGesturalNoHintOverlayNarrowBack.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/NavigationBarModeGesturalNoHintNarrowBack/NavigationBarModeGesturalNoHintOverlayNarrowBack.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/NavigationBarModeGesturalNoHintWideBack/NavigationBarModeGesturalNoHintOverlayWideBack.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/NavigationBarModeGesturalNoHintWideBack/NavigationBarModeGesturalNoHintOverlayWideBack.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/NavigationBarModeGesturalWideBack/NavigationBarModeGesturalOverlayWideBack.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/NavigationBarModeGesturalWideBack/NavigationBarModeGesturalOverlayWideBack.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/NavigationBarModeSamsungGestural/NavigationBarModeSamsungGesturalOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/NavigationBarModeSamsungGestural/NavigationBarModeSamsungGesturalOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/NavigationBarModeSamsungGesturalNoHint/NavigationBarModeSamsungGesturalNoHintOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/NavigationBarModeSamsungGesturalNoHint/NavigationBarModeSamsungGesturalNoHintOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/SysuiHideNotch/SysuiHideNotchOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/SysuiHideNotch/SysuiHideNotchOverlay.apk \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/overlay/SysuiHideNotchWithoutCornerRound/SysuiHideNotchWithoutCornerRoundOverlay.apk:$(TARGET_COPY_OUT_VENDOR)/overlay/SysuiHideNotchWithoutCornerRound/SysuiHideNotchWithoutCornerRoundOverlay.apk \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/tima_measurement_info:$(TARGET_COPY_OUT_VENDOR)/tima_measurement_info \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc
 
