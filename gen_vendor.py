@@ -49,7 +49,7 @@ SELINUX_TOP = {'plat_pub_versioned.cil', 'plat_sepolicy_vers.txt', 'vendor_file_
 LINEAGE_WINS = {'bin/awk', 'bin/grep', 'bin/sh', 'bin/toolbox', 'bin/toybox_vendor', 'bin/logwrapper', 'bin/dumpsys',
                 'bin/cplay', 'bin/vndservice', 'bin/vndservicemanager', 'etc/init/vndservicemanager.rc', 'etc/mkshrc',
                 'etc/passwd', 'etc/group', 'etc/NOTICE.xml.gz', 'etc/permissions/handheld_core_hardware.xml'}
-LINK_TARGETS_LINEAGE = {'toybox_vendor', 'toolbox'}   # the toybox applet links are created by the toybox_vendor module
+LINK_TARGETS_LINEAGE = {'toybox_vendor', 'toolbox', 'grep'}   # the toybox applet links are created by the toybox_vendor module
 
 # properties the build writes into vendor/build.prop itself
 GEN_PROP_PREFIX = ('ro.vendor.build.', 'ro.product.vendor.', 'ro.vendor.product.cpu.', 'ro.bootimage.build.',

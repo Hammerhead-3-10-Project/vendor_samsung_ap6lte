@@ -1,5 +1,3 @@
-bin/egrep	grep
-bin/fgrep	grep
 rfs/apq/gnss/hlos	/mnt/vendor/persist/hlos_rfs/shared
 rfs/apq/gnss/ramdumps	/data/vendor/tombstones/rfs/modem
 rfs/apq/gnss/readonly/firmware	/vendor/firmware_mnt
