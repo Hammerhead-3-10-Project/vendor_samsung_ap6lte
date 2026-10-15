@@ -1,0 +1,8 @@
+app/QDMA-UI/lib/arm/vendor/lib
+app/QDMA/lib/arm/vendor/lib
+bt_firmware
+dsp
+etc/configstore
+firmware-modem
+firmware_mnt
+lib/dsp
