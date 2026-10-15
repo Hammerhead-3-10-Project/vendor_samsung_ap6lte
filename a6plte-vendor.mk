@@ -187,8 +187,6 @@ PRODUCT_COPY_FILES += \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/carrier/VMU/permissions/android.hardware.telephony.cdma.xml:$(TARGET_COPY_OUT_VENDOR)/etc/carrier/VMU/permissions/android.hardware.telephony.cdma.xml \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/carrier/VZW/permissions/android.hardware.telephony.cdma.xml:$(TARGET_COPY_OUT_VENDOR)/etc/carrier/VZW/permissions/android.hardware.telephony.cdma.xml \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/carrier/XAS/permissions/android.hardware.telephony.cdma.xml:$(TARGET_COPY_OUT_VENDOR)/etc/carrier/XAS/permissions/android.hardware.telephony.cdma.xml \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/data/dsi_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/dsi_config.xml \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/data/netmgr_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/netmgr_config.xml \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/dolby/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/floating_feature.xml:$(TARGET_COPY_OUT_VENDOR)/etc/floating_feature.xml \

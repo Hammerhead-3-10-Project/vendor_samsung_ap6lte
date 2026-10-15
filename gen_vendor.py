@@ -101,6 +101,17 @@ for pf in sorted(glob.glob(os.path.join(dst, 'patches', '*.patch'))):
     subprocess.run(['patch', '-p1', '--no-backup-if-mismatch', '-d', os.path.join(dst, 'proprietary', 'vendor'),
                     '-i', pf], check=True, stdout=subprocess.DEVNULL)
     print('applied', os.path.basename(pf))
+# PRODUCT_COPY_FILES runs xmllint on every .xml it copies and stops the build if it fails. Some Qualcomm files are not
+# well-formed (a comment before the XML declaration). They are blobs and stay untouched: the copy step installs them.
+import shutil as _sh
+bad_xml = []
+if _sh.which('xmllint'):
+    for c in list(copies):
+        if c.endswith('.xml') and subprocess.run(['xmllint', '--noout', os.path.join(dst, 'proprietary', 'vendor', c)],
+                                                 capture_output=True).returncode:
+            copies.remove(c); overlay.append(c); bad_xml.append(c)
+else:
+    print('WARNING: xmllint not found, the .xml files were not checked')
 before = len(links)
 links = [(p, t) for p, t in links if not (os.path.basename(t) in LINK_TARGETS_LINEAGE)]
 dropped_links = before - len(links)
@@ -182,4 +193,5 @@ $(PRODUCT_OUT)/vendor.img: $(a6plte_overlay_stamp)
 ''' % (' '.join(overlay), ' '.join(sorted(SELINUX_TOP))))
     f.write('endif\n')
 
+print('xml not well-formed (copied by the overlay step):', bad_xml)
 print('copy', len(copies), 'overlay', len(overlay), 'lineage-built', len(skipped_aosp), 'toybox links dropped', dropped_links, 'selinux', len(selinux), 'links', len(links), 'empty dirs', len(dirs), 'props', len(seen))
