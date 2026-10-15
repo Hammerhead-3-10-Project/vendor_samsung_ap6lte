@@ -39,7 +39,8 @@ The Samsung vendor domains (`tee`, `hal_*_qti`, `vendor_per_mgr`, ...) only exis
 files must be the stock ones; the stub types in `sepolicy/` would make every Samsung service run unconfined or fail.
 `Android.mk` installs the stock files with `LOCAL_OVERRIDES_PACKAGES` in place of the ones `system/sepolicy` builds.
 
-The stock `precompiled_sepolicy*` files are copied unchanged. Their stored sha256 is that of the Samsung system policy;
-it never matches Lineage's `plat_sepolicy.cil`, so `init` ignores the precompiled policy and compiles plat + vendor at
-boot (a few seconds), exactly as it did on the stock vendor with Lineage's system. `PRODUCT_PRECOMPILED_SEPOLICY := false`
-only keeps the build from generating a precompiled policy of its own (built with the stub types, it would match).
+There is no `precompiled_sepolicy` in the vendor: `PRODUCT_PRECOMPILED_SEPOLICY := false` keeps the build from making one
+(with the stub types, and with a sha256 that would match the Lineage system, `init` would load it instead of compiling).
+`init` then compiles `plat_sepolicy.cil` + the Samsung `vendor_sepolicy.cil` at boot (a few seconds), as it did with
+the stock vendor under Lineage's system. The stock `precompiled_sepolicy*` are not copied: system/sepolicy installs them
+at the same path when there is no odm image.

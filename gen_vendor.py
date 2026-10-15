@@ -35,7 +35,12 @@ PATH = 'vendor/samsung/a6plte'
 # Files the build generates itself from tracked sources (manifest/matrix from the device tree, fs_config from
 # config.fs, build.prop/default.prop from the board config + vendor.prop) or that are only placeholders.
 GENERATED = {'build.prop', 'default.prop', 'etc/vintf/manifest.xml', 'etc/vintf/compatibility_matrix.xml',
-             'etc/fs_config_dirs', 'etc/fs_config_files'}
+             'etc/fs_config_dirs', 'etc/fs_config_files',
+             # system/sepolicy installs these in /odm if there is an odm image and in /vendor otherwise (there is none
+             # here), so a copy would be a second rule for the same path. They are not wanted anyway: their stored
+             # sha256 is the Samsung system's, init ignores them and compiles the policy at boot.
+             'etc/selinux/precompiled_sepolicy', 'etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256',
+             'etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256'}
 # Only blobs go in: no apps and no overlays. overlay/ holds AOSP RROs that Lineage builds and installs itself;
 # app/ holds TimeService.apk and the leftovers of QDMA (the Trustonic trustlet in app/mcRegistry is a blob and stays).
 SKIP_DIRS = ('lost+found', 'odm', 'overlay', 'app/TimeService', 'app/QDMA', 'app/QDMA-UI')
@@ -140,9 +145,8 @@ with open(os.path.join(dst, 'a6plte-vendor.mk'), 'w') as f:
     f.write('\n\n# symbolic links and empty directories (module in Android.mk); the Samsung SELinux policy is copied over the\n')
     f.write('# generated one by a build step in Android.mk\n')
     f.write('PRODUCT_PACKAGES += a6plte_vendor_links\n')
-    f.write('# The build must not generate its own precompiled_sepolicy: it would be made with the stub types of sepolicy/.\n')
-    f.write('# The stock precompiled_sepolicy* files are copied as they are (etc/selinux/); their stored sha256 is the one of the\n')
-    f.write('# Samsung system, never matches the Lineage plat policy, so init compiles plat + the Samsung vendor policy at boot.\n')
+    f.write('# No precompiled_sepolicy: one made by the build would use the stub types of sepolicy/ (and its sha256 would match the\n')
+    f.write('# Lineage system), so init could load it instead of compiling plat + the Samsung vendor policy at boot.\n')
     f.write('PRODUCT_PRECOMPILED_SEPOLICY := false\n')
 
 # custom users/groups of the stock vendor (etc/passwd, uid in the OEM ranges): the build only accepts them in init

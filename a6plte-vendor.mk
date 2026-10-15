@@ -376,9 +376,6 @@ PRODUCT_COPY_FILES += \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/seccomp_policy/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/seccomp_policy/mediaextractor.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaextractor.policy \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/seccomp_policy/mediaextractor_sec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaextractor_sec.policy \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/selinux/precompiled_sepolicy:$(TARGET_COPY_OUT_VENDOR)/etc/selinux/precompiled_sepolicy \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256:$(TARGET_COPY_OUT_VENDOR)/etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256 \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256:$(TARGET_COPY_OUT_VENDOR)/etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256 \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/selinux/product_sepolicy_and_mapping.sha256:$(TARGET_COPY_OUT_VENDOR)/etc/selinux/product_sepolicy_and_mapping.sha256 \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/selinux/sk/authorize.xml:$(TARGET_COPY_OUT_VENDOR)/etc/selinux/sk/authorize.xml \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/snap_gpu_kernel_32.bin:$(TARGET_COPY_OUT_VENDOR)/etc/snap_gpu_kernel_32.bin \
@@ -2314,7 +2311,6 @@ PRODUCT_COPY_FILES += \
 # symbolic links and empty directories (module in Android.mk); the Samsung SELinux policy is copied over the
 # generated one by a build step in Android.mk
 PRODUCT_PACKAGES += a6plte_vendor_links
-# The build must not generate its own precompiled_sepolicy: it would be made with the stub types of sepolicy/.
-# The stock precompiled_sepolicy* files are copied as they are (etc/selinux/); their stored sha256 is the one of the
-# Samsung system, never matches the Lineage plat policy, so init compiles plat + the Samsung vendor policy at boot.
+# No precompiled_sepolicy: one made by the build would use the stub types of sepolicy/ (and its sha256 would match the
+# Lineage system), so init could load it instead of compiling plat + the Samsung vendor policy at boot.
 PRODUCT_PRECOMPILED_SEPOLICY := false
