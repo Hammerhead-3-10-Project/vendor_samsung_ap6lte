@@ -10,6 +10,11 @@ does not already have, and declares the types that are missing as empty stubs.
 The stubs exist only for the build. On the phone the stock Samsung policy runs (proprietary/selinux/): the build's own
 vendor_sepolicy.cil, vendor_file_contexts, ... are replaced by it (Android.mk, LOCAL_OVERRIDES_PACKAGES).
 
+WARNING: do not point the second argument at the out/ of a build that already used sepolicy/ (the rules would be
+counted as "already in the build" and the output would be empty). Pass any non-directory (e.g. "none") to use the
+snapshots known_*.txt, which were taken from a build without these rules. To refresh them, build with
+BOARD_SEPOLICY_DIRS lacking this directory, then run with that out/.
+
 The ETC directory is used (with seinfo) to know which types and rules the build already has; the answer is kept in
 sepolicy/known_types.txt and sepolicy/known_contexts.txt so the generator can run without a build tree.
 """
@@ -46,12 +51,19 @@ def vendor_rule(l):
     s = l.strip()
     return bool(s) and not s.startswith('#') and s.split()[0].startswith(
         ('/vendor', '/(vendor', '/system/vendor', '/(system/vendor', '/odm', '/(odm'))
+# Rules of the stock file that must not be used. The stock vendor_file_contexts has two rules that match
+# android.hardware.drm@1.2-service.widevine: this one (escaped dot, hal_drm_default_exec) and a later one with an
+# unescaped dot (hal_drm_widevine_exec). The stock image carries hal_drm_widevine_exec, but the build orders rules by
+# specificity and the longer escaped regex wins, so the file would get hal_drm_default_exec.
+DROP = {r'/(vendor|system/vendor)/bin/hw/android\.hardware\.drm@1\.2-service\.widevine'}
 keep, dup, conflict = [], 0, []
 for l in stock:
     if not vendor_rule(l):
         continue
     key = (l.split()[0], l.split()[1] if len(l.split()) == 3 else '')
     ctx = l.split()[-1]
+    if key[0] in DROP:
+        continue
     if key in known_ctx:
         if known_ctx[key] == ctx: dup += 1
         else: conflict.append((key, ctx, known_ctx[key]))
