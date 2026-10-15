@@ -16,3 +16,7 @@ TARGET_FS_CONFIG_GEN += vendor/samsung/a6plte/aids.fs
 
 # vendor/build.prop ro.vendor.build.security_patch (the Samsung keymaster reads the vendor patch level)
 VENDOR_SECURITY_PATCH := 2021-12-01
+
+# The boot image needs a ramdisk with the first-stage init (see Android.mk, a6plte_ramdisk). BOARD_BUILD_SYSTEM_ROOT_IMAGE makes
+# the build leave it out, so it is passed by hand; the path is the one of the rule in Android.mk.
+BOARD_MKBOOTIMG_ARGS += --ramdisk out/target/product/$(TARGET_DEVICE)/obj/PACKAGING/a6plte_ramdisk_intermediates/ramdisk.img

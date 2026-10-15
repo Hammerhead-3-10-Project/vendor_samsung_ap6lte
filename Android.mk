@@ -39,4 +39,18 @@ $(a6plte_overlay_stamp): $(addprefix $(LOCAL_PATH)/proprietary/vendor/,$(a6plte_
 	$(hide) touch $@
 $(PRODUCT_OUT)/vendor.img: $(a6plte_overlay_stamp)
 
+# boot.img ramdisk. The system image is system-as-root, so the build gives boot.img no ramdisk (BOARD_BUILD_SYSTEM_ROOT_IMAGE)
+# and init_first_stage is not even defined; the kernel would find no /init. Samsung's bootloader/kernel expect what the
+# stock boot image has: the static first-stage init (it mounts system from the dtb fstab and switches root to it) and
+# dpolicy, with the mount points of an AOSP first-stage ramdisk. They are passed to mkbootimg with BOARD_MKBOOTIMG_ARGS
+# (BoardConfigVendor.mk), which the build and releasetools (the boot.img of the zip) both use.
+a6plte_ramdisk := $(PRODUCT_OUT)/obj/PACKAGING/a6plte_ramdisk_intermediates/ramdisk.img
+$(a6plte_ramdisk): PRIVATE_SRC := $(LOCAL_PATH)/ramdisk
+$(a6plte_ramdisk): $(LOCAL_PATH)/ramdisk/init $(LOCAL_PATH)/ramdisk/dpolicy $(HOST_OUT_EXECUTABLES)/mkbootfs $(HOST_OUT_EXECUTABLES)/minigzip
+	@echo "Samsung first-stage ramdisk: $@"
+	$(hide) rm -rf $(dir $@)root && mkdir -p $(dir $@)root/apex $(dir $@)root/debug_ramdisk $(dir $@)root/dev $(dir $@)root/mnt $(dir $@)root/proc $(dir $@)root/sys
+	$(hide) cp $(PRIVATE_SRC)/init $(PRIVATE_SRC)/dpolicy $(dir $@)root/ && chmod 750 $(dir $@)root/init && chmod 644 $(dir $@)root/dpolicy
+	$(hide) $(HOST_OUT_EXECUTABLES)/mkbootfs -d $(TARGET_OUT) $(dir $@)root | $(HOST_OUT_EXECUTABLES)/minigzip > $@
+$(PRODUCT_OUT)/boot.img: $(a6plte_ramdisk)
+
 endif

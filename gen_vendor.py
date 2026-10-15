@@ -14,7 +14,15 @@ Output (everything is regenerated, nothing is edited by hand):
 import os, shutil, sys
 
 src, dst = os.path.abspath(sys.argv[1]), os.path.abspath(sys.argv[2])
-LINEAGE_OUT = os.path.abspath(sys.argv[3]) if len(sys.argv) > 3 else None   # out/ of a Lineage build (to refresh the snapshot)
+# out/ of a Lineage build, to refresh lineage_vendor_installs.txt. Anything that is not a directory (e.g. "none") keeps the
+# snapshot: an empty one would put the 165 stock files that share a name with Lineage modules back in PRODUCT_COPY_FILES.
+LINEAGE_OUT = os.path.abspath(sys.argv[3]) if len(sys.argv) > 3 and os.path.isdir(sys.argv[3]) else None
+RAMDISK_SRC = os.path.abspath(sys.argv[4]) if len(sys.argv) > 4 else None   # stock boot ramdisk, extracted (init, dpolicy)
+if RAMDISK_SRC:
+    os.makedirs(os.path.join(dst, 'ramdisk'), exist_ok=True)
+    for fn, mode in (('init', 0o750), ('dpolicy', 0o644)):
+        shutil.copyfile(os.path.join(RAMDISK_SRC, fn), os.path.join(dst, 'ramdisk', fn))
+        os.chmod(os.path.join(dst, 'ramdisk', fn), mode)
 INSTALLS = os.path.join(dst, 'lineage_vendor_installs.txt')
 if LINEAGE_OUT:
     # Every file the Lineage build has a rule for under /vendor (Soong and Android.mk modules), from the ninja files.
@@ -219,6 +227,21 @@ $(a6plte_overlay_stamp): $(addprefix $(LOCAL_PATH)/proprietary/vendor/,$(a6plte_
 $(PRODUCT_OUT)/vendor.img: $(a6plte_overlay_stamp)
 
 ''' % (' '.join(overlay), ' '.join(sorted(SELINUX_TOP)), ' '.join(LINEAGE_REMOVE)))
+    f.write('''# boot.img ramdisk. The system image is system-as-root, so the build gives boot.img no ramdisk (BOARD_BUILD_SYSTEM_ROOT_IMAGE)
+# and init_first_stage is not even defined; the kernel would find no /init. Samsung's bootloader/kernel expect what the
+# stock boot image has: the static first-stage init (it mounts system from the dtb fstab and switches root to it) and
+# dpolicy, with the mount points of an AOSP first-stage ramdisk. They are passed to mkbootimg with BOARD_MKBOOTIMG_ARGS
+# (BoardConfigVendor.mk), which the build and releasetools (the boot.img of the zip) both use.
+a6plte_ramdisk := $(PRODUCT_OUT)/obj/PACKAGING/a6plte_ramdisk_intermediates/ramdisk.img
+$(a6plte_ramdisk): PRIVATE_SRC := $(LOCAL_PATH)/ramdisk
+$(a6plte_ramdisk): $(LOCAL_PATH)/ramdisk/init $(LOCAL_PATH)/ramdisk/dpolicy $(HOST_OUT_EXECUTABLES)/mkbootfs $(HOST_OUT_EXECUTABLES)/minigzip
+\t@echo "Samsung first-stage ramdisk: $@"
+\t$(hide) rm -rf $(dir $@)root && mkdir -p $(dir $@)root/apex $(dir $@)root/debug_ramdisk $(dir $@)root/dev $(dir $@)root/mnt $(dir $@)root/proc $(dir $@)root/sys
+\t$(hide) cp $(PRIVATE_SRC)/init $(PRIVATE_SRC)/dpolicy $(dir $@)root/ && chmod 750 $(dir $@)root/init && chmod 644 $(dir $@)root/dpolicy
+\t$(hide) $(HOST_OUT_EXECUTABLES)/mkbootfs -d $(TARGET_OUT) $(dir $@)root | $(HOST_OUT_EXECUTABLES)/minigzip > $@
+$(PRODUCT_OUT)/boot.img: $(a6plte_ramdisk)
+
+''')
     f.write('endif\n')
 
 print('custom AIDs:', len(aids))
