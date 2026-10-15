@@ -49,6 +49,10 @@ SELINUX_TOP = {'plat_pub_versioned.cil', 'plat_sepolicy_vers.txt', 'vendor_file_
 LINEAGE_WINS = {'bin/awk', 'bin/grep', 'bin/sh', 'bin/toolbox', 'bin/toybox_vendor', 'bin/logwrapper', 'bin/dumpsys',
                 'bin/cplay', 'bin/vndservice', 'bin/vndservicemanager', 'etc/init/vndservicemanager.rc', 'etc/mkshrc',
                 'etc/passwd', 'etc/group', 'etc/NOTICE.xml.gz', 'etc/permissions/handheld_core_hardware.xml'}
+# init scripts the Lineage build installs that define a service the stock vendor already defines (same name, other
+# arguments/groups). init reads /vendor/etc/init in alphabetical order and ignores the later duplicate, which would
+# make Lineage's (weaker) definition win for vendor.media.omx. They are removed by the copy step.
+LINEAGE_REMOVE = ['etc/init/rild.legacy.rc', 'etc/init/android.hardware.media.omx@1.0-service.rc']
 LINK_TARGETS_LINEAGE = {'toybox_vendor', 'toolbox', 'grep'}   # the toybox applet links are created by the toybox_vendor module
 
 # properties the build writes into vendor/build.prop itself
@@ -193,20 +197,23 @@ with open(os.path.join(dst, 'Android.mk'), 'w') as f:
 # everything under /vendor (installed-files-vendor.txt depends on all of it) and before vendor.img is made.
 a6plte_overlay_files := %s
 a6plte_selinux_files := %s
+a6plte_remove_files := %s
 a6plte_overlay_stamp := $(PRODUCT_OUT)/obj/PACKAGING/a6plte_vendor_overlay_intermediates/copied.stamp
 $(a6plte_overlay_stamp): PRIVATE_SRC := $(LOCAL_PATH)/proprietary
 $(a6plte_overlay_stamp): PRIVATE_DST := $(TARGET_OUT_VENDOR)
 $(a6plte_overlay_stamp): PRIVATE_OVERLAY := $(a6plte_overlay_files)
 $(a6plte_overlay_stamp): PRIVATE_SELINUX := $(a6plte_selinux_files)
+$(a6plte_overlay_stamp): PRIVATE_REMOVE := $(a6plte_remove_files)
 $(a6plte_overlay_stamp): $(addprefix $(LOCAL_PATH)/proprietary/vendor/,$(a6plte_overlay_files)) $(addprefix $(LOCAL_PATH)/proprietary/selinux/,$(a6plte_selinux_files)) $(PRODUCT_OUT)/installed-files-vendor.txt
 \t@echo "Samsung vendor files over the generated ones: $(words $(PRIVATE_OVERLAY)) + $(words $(PRIVATE_SELINUX)) SELinux"
 \t$(hide) mkdir -p $(PRIVATE_DST)/etc/selinux $(dir $@)
 \t$(hide) for f in $(PRIVATE_OVERLAY); do mkdir -p $(PRIVATE_DST)/$$(dirname $$f); rm -f $(PRIVATE_DST)/$$f; cp -p $(PRIVATE_SRC)/vendor/$$f $(PRIVATE_DST)/$$f; done
 \t$(hide) for f in $(PRIVATE_SELINUX); do rm -f $(PRIVATE_DST)/etc/selinux/$$f; cp $(PRIVATE_SRC)/selinux/$$f $(PRIVATE_DST)/etc/selinux/$$f; done
+\t$(hide) for f in $(PRIVATE_REMOVE); do rm -f $(PRIVATE_DST)/$$f; done
 \t$(hide) touch $@
 $(PRODUCT_OUT)/vendor.img: $(a6plte_overlay_stamp)
 
-''' % (' '.join(overlay), ' '.join(sorted(SELINUX_TOP))))
+''' % (' '.join(overlay), ' '.join(sorted(SELINUX_TOP)), ' '.join(LINEAGE_REMOVE)))
     f.write('endif\n')
 
 print('custom AIDs:', len(aids))
