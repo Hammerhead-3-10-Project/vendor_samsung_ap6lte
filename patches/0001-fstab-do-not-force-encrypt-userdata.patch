@@ -1,0 +1,18 @@
+Subject: fstab.qcom: userdata forceencrypt=footer -> encryptable=footer
+
+With forceencrypt, init runs "vdc cryptfs enablecrypto" on the first boot of an empty /data and the AOSP vold of
+Lineage loops forever on "Keymaster key requires upgrade" (-62): the Samsung TEE keymaster (MDFPP 2.3.10) refuses to
+create or upgrade keys because the Knox warranty bit is set ("Device is compromized: fuse loc=5 ... sw_fuse_blown=1").
+The boot never completes. With encryptable, /data stays unencrypted and vold does not start the encryption.
+
+--- a/etc/fstab.qcom	2026-10-15 10:49:07.622493583 +0200
++++ b/etc/fstab.qcom	2026-10-15 10:49:07.623669927 +0200
+@@ -34,7 +34,7 @@
+ 
+ #<src>                                      <mnt_point>  <type>  <mnt_flags and options>                     <fs_mgr_flags>
+ #/dev/block/bootdevice/by-name/system        /            ext4    ro,barrier=1,discard                        wait,verify
+-/dev/block/bootdevice/by-name/userdata	/data	ext4	noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic	wait,check,forceencrypt=footer,quota,reservedsize=128M
++/dev/block/bootdevice/by-name/userdata	/data	ext4	noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic	wait,check,encryptable=footer,quota,reservedsize=128M
+ /dev/block/bootdevice/by-name/config        /frp         emmc    defaults                                    defaults
+ /dev/block/bootdevice/by-name/misc          /misc        emmc    defaults                                    defaults
+ /dev/block/bootdevice/by-name/cache	/cache	ext4	noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic	wait,check

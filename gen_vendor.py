@@ -66,6 +66,12 @@ for root, dnames, fnames in os.walk(src):
             r = os.path.relpath(p, src)
             if (r, os.readlink(p)) not in links:
                 links.append((r, os.readlink(p)))
+# changes made on top of the stock files (patches/*.patch, unified diffs relative to proprietary/vendor)
+import glob, subprocess
+for pf in sorted(glob.glob(os.path.join(dst, 'patches', '*.patch'))):
+    subprocess.run(['patch', '-p1', '--no-backup-if-mismatch', '-d', os.path.join(dst, 'proprietary', 'vendor'),
+                    '-i', pf], check=True, stdout=subprocess.DEVNULL)
+    print('applied', os.path.basename(pf))
 links.sort(); dirs.sort(); copies.sort()
 
 with open(os.path.join(dst, 'links.list'), 'w') as f:
