@@ -140,8 +140,9 @@ with open(os.path.join(dst, 'a6plte-vendor.mk'), 'w') as f:
     f.write('\n\n# symbolic links and empty directories (module in Android.mk); the Samsung SELinux policy is copied over the\n')
     f.write('# generated one by a build step in Android.mk\n')
     f.write('PRODUCT_PACKAGES += a6plte_vendor_links\n')
-    f.write('# init compiles the policy at boot (plat from system + the Samsung vendor policy). A precompiled policy built\n')
-    f.write('# here would use the stub types of sepolicy/ and must not exist.\n')
+    f.write('# The build must not generate its own precompiled_sepolicy: it would be made with the stub types of sepolicy/.\n')
+    f.write('# The stock precompiled_sepolicy* files are copied as they are (etc/selinux/); their stored sha256 is the one of the\n')
+    f.write('# Samsung system, never matches the Lineage plat policy, so init compiles plat + the Samsung vendor policy at boot.\n')
     f.write('PRODUCT_PRECOMPILED_SEPOLICY := false\n')
 
 # custom users/groups of the stock vendor (etc/passwd, uid in the OEM ranges): the build only accepts them in init

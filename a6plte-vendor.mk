@@ -2314,6 +2314,7 @@ PRODUCT_COPY_FILES += \
 # symbolic links and empty directories (module in Android.mk); the Samsung SELinux policy is copied over the
 # generated one by a build step in Android.mk
 PRODUCT_PACKAGES += a6plte_vendor_links
-# init compiles the policy at boot (plat from system + the Samsung vendor policy). A precompiled policy built
-# here would use the stub types of sepolicy/ and must not exist.
+# The build must not generate its own precompiled_sepolicy: it would be made with the stub types of sepolicy/.
+# The stock precompiled_sepolicy* files are copied as they are (etc/selinux/); their stored sha256 is the one of the
+# Samsung system, never matches the Lineage plat policy, so init compiles plat + the Samsung vendor policy at boot.
 PRODUCT_PRECOMPILED_SEPOLICY := false
