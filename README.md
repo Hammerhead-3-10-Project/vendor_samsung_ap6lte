@@ -8,6 +8,7 @@ by the ROM build from the files in this tree. Nothing is flashed or patched on t
 | `proprietary/vendor/` | the regular files of the stock `/vendor`, same relative paths (copied with `PRODUCT_COPY_FILES`) |
 | `proprietary/selinux/` | the Samsung vendor SELinux policy; replaces the files `system/sepolicy` generates for the vendor |
 | `links.list`, `dirs.list`, `make-links.sh` | symbolic links and empty mount-point directories (`PRODUCT_COPY_FILES` can create neither) |
+| `sepolicy/` | `file_contexts` of the stock vendor (rules the build lacks) + stub `.te` types, so the build can label and check `vendor.img` |
 | `config.fs` | owners and file capabilities the default `fs_config` rules do not give (3 binaries) |
 | `vendor.prop` | vendor properties of the stock firmware that the build does not generate (`TARGET_VENDOR_PROP`) |
 | `patches/` | changes made on top of the stock files, applied by the generator (each one explains why) |
@@ -23,3 +24,13 @@ Regenerate (dump = `firmware/extracted/vendor`, made with `debugfs -R "rdump / d
 
 The SELinux labels of the files come from `vendor_file_contexts` at build time (as in the stock build), the
 capabilities from `config.fs`. The Samsung `security.five` file-integrity xattrs cannot be reproduced.
+
+`gen_sepolicy.py <dump> <lineage out/.../obj/ETC> .` regenerates `sepolicy/` (it asks `seinfo` which types and rules
+the build already has and keeps the answer in `sepolicy/known_*.txt`).
+
+## Why the stock SELinux policy is shipped as is
+
+At boot `init` compiles `plat_sepolicy.cil` (system) with `vendor_sepolicy.cil` and `plat_pub_versioned.cil` (vendor).
+The Samsung vendor domains (`tee`, `hal_*_qti`, `vendor_per_mgr`, ...) only exist in the stock vendor policy, so those
+files must be the stock ones; the stub types in `sepolicy/` would make every Samsung service run unconfined or fail.
+`Android.mk` installs the stock files with `LOCAL_OVERRIDES_PACKAGES` in place of the ones `system/sepolicy` builds.
