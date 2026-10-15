@@ -13,3 +13,6 @@ BOARD_SEPOLICY_DIRS += vendor/samsung/a6plte/sepolicy
 
 # custom users/groups of the stock vendor (vendor_qrtr, vendor_thermal, ...), generated from its etc/passwd
 TARGET_FS_CONFIG_GEN += vendor/samsung/a6plte/aids.fs
+
+# vendor/build.prop ro.vendor.build.security_patch (the Samsung keymaster reads the vendor patch level)
+VENDOR_SECURITY_PATCH := 2021-12-01

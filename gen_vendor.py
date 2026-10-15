@@ -52,8 +52,12 @@ LINEAGE_WINS = {'bin/awk', 'bin/grep', 'bin/sh', 'bin/toolbox', 'bin/toybox_vend
 LINK_TARGETS_LINEAGE = {'toybox_vendor', 'toolbox', 'grep'}   # the toybox applet links are created by the toybox_vendor module
 
 # properties the build writes into vendor/build.prop itself
-GEN_PROP_PREFIX = ('ro.vendor.build.', 'ro.product.vendor.', 'ro.vendor.product.cpu.', 'ro.bootimage.build.',
+GEN_PROP_PREFIX = ('ro.vendor.build.date', 'ro.vendor.build.fingerprint', 'ro.vendor.build.id', 'ro.vendor.build.tags',
+                   'ro.vendor.build.type', 'ro.vendor.build.version.incremental', 'ro.vendor.build.version.release',
+                   'ro.vendor.build.version.sdk', 'ro.vendor.build.security_patch',   # VENDOR_SECURITY_PATCH
+                   'ro.product.vendor.', 'ro.vendor.product.cpu.', 'ro.bootimage.build.',
                    'ro.product.first_api_level', 'ro.product.board', 'ro.board.platform')
+# NOT generated and kept: ro.vendor.build.version.sehi (Samsung)
 
 for d in ('proprietary',):
     shutil.rmtree(os.path.join(dst, d), ignore_errors=True)
