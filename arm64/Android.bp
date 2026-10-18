@@ -1,0 +1,161 @@
+// Pinned A20s ARM64 GPU/helper libraries. ARM32 stock blobs remain unchanged.
+cc_defaults {
+    name: "a6plte_arm64_blob_defaults",
+    vendor: true,
+    compile_multilib: "64",
+    stl: "none",
+    strip: { none: true },
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_eglSubDriverAndroid",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "eglSubDriverAndroid",
+    srcs: ["blobs/lib64/egl/eglSubDriverAndroid.so"],
+    shared_libs: ["a6plte_arm64_libEGL_adreno", "libcutils", "libhardware", "a6plte_arm64_libgsl", "libz", "liblog", "libc++"],
+    relative_install_path: "egl",
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_libEGL_adreno",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "libEGL_adreno",
+    srcs: ["blobs/lib64/egl/libEGL_adreno.so"],
+    shared_libs: ["a6plte_arm64_libadreno_utils", "a6plte_arm64_libgsl", "libcutils", "libz", "liblog", "libc++"],
+    relative_install_path: "egl",
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_libGLESv1_CM_adreno",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "libGLESv1_CM_adreno",
+    srcs: ["blobs/lib64/egl/libGLESv1_CM_adreno.so"],
+    shared_libs: ["a6plte_arm64_libgsl", "libcutils", "libz", "liblog", "libc++"],
+    relative_install_path: "egl",
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_libGLESv2_adreno",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "libGLESv2_adreno",
+    srcs: ["blobs/lib64/egl/libGLESv2_adreno.so"],
+    shared_libs: ["liba6plte_atrace_compat", "a6plte_arm64_libadreno_utils", "a6plte_arm64_libgsl", "a6plte_arm64_libllvm-glnext", "libcutils", "libz", "liblog", "libc++"],
+    relative_install_path: "egl",
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_libq3dtools_adreno",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "libq3dtools_adreno",
+    srcs: ["blobs/lib64/egl/libq3dtools_adreno.so"],
+    shared_libs: ["libcutils", "liblog", "a6plte_arm64_libgsl", "libc++"],
+    relative_install_path: "egl",
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_libq3dtools_esx",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "libq3dtools_esx",
+    srcs: ["blobs/lib64/egl/libq3dtools_esx.so"],
+    shared_libs: ["libcutils", "liblog", "libz", "libc++"],
+    relative_install_path: "egl",
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_vulkan.adreno",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "vulkan.adreno",
+    srcs: ["blobs/lib64/hw/vulkan.adreno.so"],
+    shared_libs: ["liba6plte_atrace_compat", "a6plte_arm64_libadreno_utils", "a6plte_arm64_libgsl", "libz", "liblog", "a6plte_arm64_libllvm-glnext", "libcutils", "libhardware", "libnativewindow", "libc++"],
+    relative_install_path: "hw",
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_libCB",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "libCB",
+    srcs: ["blobs/lib64/libCB.so"],
+    shared_libs: ["liba6plte_atrace_compat", "libcutils", "liblog", "a6plte_arm64_libgsl", "libutils", "libvndksupport", "libc++"],
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_libOpenCL",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "libOpenCL",
+    srcs: ["blobs/lib64/libOpenCL.so"],
+    shared_libs: ["libcutils", "libvndksupport", "libc++"],
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_libadreno_utils",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "libadreno_utils",
+    srcs: ["blobs/lib64/libadreno_utils.so"],
+    shared_libs: ["a6plte_arm64_libgsl", "libc++"],
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_libgsl",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "libgsl",
+    srcs: ["blobs/lib64/libgsl.so"],
+    shared_libs: ["libcutils", "liblog", "libz", "libsync", "libc++"],
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_libllvm-glnext",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "libllvm-glnext",
+    srcs: ["blobs/lib64/libllvm-glnext.so"],
+    shared_libs: ["a6plte_arm64_libgsl", "libc++"],
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_libllvm-qcom",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "libllvm-qcom",
+    srcs: ["blobs/lib64/libllvm-qcom.so"],
+    shared_libs: ["libc++"],
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_libmm-color-convertor",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "libmm-color-convertor",
+    srcs: ["blobs/lib64/libmm-color-convertor.so"],
+    shared_libs: ["libc++"],
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_libC2D2",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "libC2D2",
+    srcs: ["blobs/lib64/libC2D2.so"],
+    shared_libs: ["liba6plte_atrace_compat", "a6plte_arm64_libgsl", "libcutils", "libutils", "libc++"],
+}
+
+// Export the Android 10 inline tracing API for Android 11 Adreno clients.
+cc_library_shared {
+    name: "liba6plte_atrace_compat",
+    vendor: true,
+    compile_multilib: "64",
+    srcs: ["atrace_compat.cpp"],
+    shared_libs: ["libcutils"],
+    stl: "none",
+    version_script: "atrace_compat.map",
+}

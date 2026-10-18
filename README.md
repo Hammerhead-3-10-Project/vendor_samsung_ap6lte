@@ -1,3 +1,10 @@
+# Experimental ARM64 vendor layer
+
+On `pe-ten-arm64`, `arm64/` adds fifteen A20s GPU/helper libraries and a source tracing bridge while
+preserving the stock ARM32 proprietary subtree. See [arm64/README.md](arm64/README.md). Native graphics
+and media wrappers are built from Android 10 sources by the matching device/common branches.
+The stock extraction and policy documentation below still applies to the preserved ARM32 base.
+
 # vendor/samsung/a6plte
 
 The `vendor` partition of the Samsung Galaxy A6+ (SM-A605FN), firmware **A605FNXXU8CVA1** (Android 10), built

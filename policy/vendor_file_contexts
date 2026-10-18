@@ -1,1 +1,2 @@
 /(vendor|system/vendor)/bin/hw/vendor\.qti\.hardware\.capabilityconfigstore@1\.0-service u:object_r:hal_capabilityconfigstore_qti_default_exec:s0
+/vendor/lib64/liba6plte_atrace_compat\.so u:object_r:same_process_hal_file:s0

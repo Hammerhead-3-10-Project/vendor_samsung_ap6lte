@@ -86,7 +86,8 @@ def generate(src, dst, LINEAGE_OUT, RAMDISK_SRC):
                        'ro.vendor.build.type', 'ro.vendor.build.version.incremental', 'ro.vendor.build.version.release',
                        'ro.vendor.build.version.sdk', 'ro.vendor.build.security_patch',   # VENDOR_SECURITY_PATCH
                        'ro.product.vendor.', 'ro.vendor.product.cpu.', 'ro.bootimage.build.',
-                       'ro.product.first_api_level', 'ro.product.board', 'ro.board.platform')
+                       'ro.product.first_api_level', 'ro.product.board', 'ro.board.platform',
+                       'ro.bionic.', 'dalvik.vm.isa.')
     # NOT generated and kept: ro.vendor.build.version.sehi (Samsung)
 
     copies, overlay, skipped_aosp, selinux, links, dirs = [], [], [], [], [], []
@@ -196,7 +197,7 @@ def generate(src, dst, LINEAGE_OUT, RAMDISK_SRC):
             if not l or l.startswith('#'):
                 continue
             k = l.split('=', 1)[0]
-            if k.startswith(GEN_PROP_PREFIX):
+            if k == 'ro.zygote' or k.startswith(GEN_PROP_PREFIX):
                 continue
             props.append((fn, l))
     with open(os.path.join(dst, 'vendor.prop'), 'w') as f:
@@ -230,13 +231,14 @@ def generate(src, dst, LINEAGE_OUT, RAMDISK_SRC):
 a6plte_overlay_files := %s
 a6plte_selinux_files := %s
 a6plte_remove_files := %s
+include $(LOCAL_PATH)/arm64/build.mk
 a6plte_overlay_stamp := $(PRODUCT_OUT)/obj/PACKAGING/a6plte_vendor_overlay_intermediates/copied.stamp
 $(a6plte_overlay_stamp): PRIVATE_SRC := $(LOCAL_PATH)/proprietary
 $(a6plte_overlay_stamp): PRIVATE_DST := $(TARGET_OUT_VENDOR)
 $(a6plte_overlay_stamp): PRIVATE_OVERLAY := $(a6plte_overlay_files)
 $(a6plte_overlay_stamp): PRIVATE_SELINUX := $(a6plte_selinux_files)
 $(a6plte_overlay_stamp): PRIVATE_REMOVE := $(a6plte_remove_files)
-$(a6plte_overlay_stamp): $(addprefix $(LOCAL_PATH)/proprietary/vendor/,$(a6plte_overlay_files)) $(addprefix $(LOCAL_PATH)/proprietary/selinux/,$(a6plte_selinux_files)) $(PRODUCT_OUT)/installed-files-vendor.txt $(a6plte_runtime_policy)
+$(a6plte_overlay_stamp): $(addprefix $(LOCAL_PATH)/proprietary/vendor/,$(a6plte_overlay_files)) $(addprefix $(LOCAL_PATH)/proprietary/selinux/,$(a6plte_selinux_files)) $(PRODUCT_OUT)/installed-files-vendor.txt $(a6plte_runtime_policy) $(a6plte_arm64_elf_checks)
 \t@echo "Samsung vendor files over the generated ones: $(words $(PRIVATE_OVERLAY)) + $(words $(PRIVATE_SELINUX)) SELinux"
 \t$(hide) mkdir -p $(PRIVATE_DST)/etc/selinux $(dir $@)
 \t$(hide) for f in $(PRIVATE_OVERLAY); do mkdir -p $(PRIVATE_DST)/$$(dirname $$f); rm -f $(PRIVATE_DST)/$$f; cp -p $(PRIVATE_SRC)/vendor/$$f $(PRIVATE_DST)/$$f; done
