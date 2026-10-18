@@ -1836,3 +1836,5 @@
 /sys/firmware/devicetree/base/soc/i2c@a8c000/touchscreen@48/sync-reportrate-120		u:object_r:sysfs_sec_touchscreen:s0
 /sys/devices/platform/soc/890000\.i2c/i2c-0/0-0066/max77705-usbc/typec/port0/power_role		u:object_r:sysfs_ss_writable:s0
 /sys/devices/platform/14360000\.hsi2c/i2c-15/15-0066/max77705-usbc/dual_role_usb/otg_default/data_role		u:object_r:sysfs_usb:s0
+
+/(vendor|system/vendor)/bin/hw/vendor\.qti\.hardware\.capabilityconfigstore@1\.0-service u:object_r:hal_capabilityconfigstore_qti_default_exec:s0

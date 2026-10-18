@@ -1,0 +1,11 @@
+--- a/ueventd.rc
++++ b/ueventd.rc
+@@ -406,3 +406,8 @@
+ /sys/class/graphics/fb0     modes                    0664    system  graphics
+ /sys/class/graphics/fb0     mode                     0664    system  graphics
+ /sys/class/graphics/fb0     msm_cmd_autorefresh_en   0664    system  graphics
++
++# Trustonic creates mobicore-user after mcDriverDaemon connects. Apply ownership
++# on each device event rather than relying on an earlier init chmod.
++/dev/mobicore            0700    system      system
++/dev/mobicore-user       0660    radio       system

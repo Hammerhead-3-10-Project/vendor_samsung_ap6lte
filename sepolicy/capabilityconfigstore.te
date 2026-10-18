@@ -1,0 +1,4 @@
+# Build-time declarations for the matching runtime additions in policy/.
+# The exec type is generated in vendor_types.te from policy/vendor_file_contexts.
+type hal_capabilityconfigstore_qti_hwservice, hwservice_manager_type;
+type vendor_cap_configstore_dbg_prop, property_type;

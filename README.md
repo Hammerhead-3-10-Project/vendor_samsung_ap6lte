@@ -41,7 +41,7 @@ capabilities from `config.fs`. The Samsung `security.five` file-integrity xattrs
 `gen_sepolicy.py <dump> <lineage out/.../obj/ETC> .` regenerates `sepolicy/` (it asks `seinfo` which types and rules
 the build already has and keeps the answer in `sepolicy/known_*.txt`).
 
-## Why the stock SELinux policy is shipped as is
+## Why the Samsung SELinux policy remains the base
 
 At boot `init` compiles `plat_sepolicy.cil` (system) with `vendor_sepolicy.cil` and `plat_pub_versioned.cil` (vendor).
 The Samsung vendor domains (`tee`, `hal_*_qti`, `vendor_per_mgr`, ...) only exist in the stock vendor policy, so those
@@ -53,3 +53,24 @@ There is no `precompiled_sepolicy` in the vendor: `PRODUCT_PRECOMPILED_SEPOLICY 
 `init` then compiles `plat_sepolicy.cil` + the Samsung `vendor_sepolicy.cil` at boot (a few seconds), as it did with
 the stock vendor under Lineage's system. The stock `precompiled_sepolicy*` are not copied: system/sepolicy installs them
 at the same path when there is no odm image.
+
+## Device policy additions and Trustonic nodes (2026-10-18)
+
+`policy/` contains reviewed additions to the stock runtime CIL, file, hwservice and property contexts.
+`gen_vendor.py` appends these once to freshly copied stock files in staging. Run `gen_sepolicy.py` with
+`none` before regenerating vendor when changing vendor file labels; it also reads `policy/vendor_file_contexts`.
+The build declarations in `sepolicy/capabilityconfigstore.te` and context files match the runtime additions.
+
+Qualcomm capabilityconfigstore has its own executable domain and HIDL service label. Its configuration under
+`/vendor/etc/configstore` is read-only; framework/media clients can query it, untrusted apps cannot register it.
+Do not replace this with generic init execution permissions on `vendor_file` or a permissive domain.
+Validate the final Samsung-plus-platform policy with Android's secilc options, including the same `-N` used
+by init. Checking neverallows separately must be compared against the unmodified stock baseline; Samsung
+and PE already have incompatible neverallows unrelated to these additions.
+
+`patches/0002-*` assigns Trustonic device ownership through ueventd, including `/dev/mobicore-user` created
+by the daemon after boot. The matching loader/daemon init and fingerprint feature are in msm8953-common;
+the existing Samsung fingerprint HAL already exports the standard 2.1 interface. NFC framework/Tag are
+also selected there. Enrollment, NFC transactions and Trustonic startup still require a full-ROM boot test.
+
+The boot ramdisk path follows `PRODUCT_OUT`, including custom `OUT_DIR` builds.

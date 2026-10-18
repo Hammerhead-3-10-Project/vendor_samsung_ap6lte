@@ -38,6 +38,7 @@ type hal_authfw_default_exec, exec_type, file_type, vendor_file_type;
 type hal_base_default_exec, exec_type, file_type, vendor_file_type;
 type hal_blockchain_default_exec, exec_type, file_type, vendor_file_type;
 type hal_bluetooth_qti_exec, exec_type, file_type, vendor_file_type;
+type hal_capabilityconfigstore_qti_default_exec, exec_type, file_type, vendor_file_type;
 type hal_converter_default_exec, exec_type, file_type, vendor_file_type;
 type hal_ddar_default_exec, exec_type, file_type, vendor_file_type;
 type hal_display_color_default_exec, exec_type, file_type, vendor_file_type;

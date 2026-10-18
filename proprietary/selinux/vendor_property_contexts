@@ -415,3 +415,5 @@ vendor.media.msm8953.version      u:object_r:vendor_media_msm8953_version_prop:s
 # empty property_contexts file - this file is used to generate an empty
 # non-platform property context for devices without any property_contexts
 # customizations.
+
+persist.vendor.cap_configstore_debug u:object_r:vendor_cap_configstore_dbg_prop:s0

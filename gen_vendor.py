@@ -133,6 +133,14 @@ def generate(src, dst, LINEAGE_OUT, RAMDISK_SRC):
         subprocess.run(['patch', '-p1', '--no-backup-if-mismatch', '-d', os.path.join(dst, 'proprietary', 'vendor'),
                         '-i', pf], check=True, stdout=subprocess.DEVNULL)
         print('applied', os.path.basename(pf))
+    # Runtime policy is stock Samsung plus reviewed device-specific additions.
+    # Keep additions separate from blobs so regeneration cannot silently drop fixes.
+    for name in ('vendor_sepolicy.cil', 'vendor_file_contexts',
+                 'vendor_hwservice_contexts', 'vendor_property_contexts'):
+        addition = Path(dst) / 'policy' / name
+        if addition.is_file():
+            with (Path(dst) / 'proprietary/selinux' / name).open('a') as output:
+                output.write('\n' + addition.read_text())
     # PRODUCT_COPY_FILES runs xmllint on every .xml it copies and stops the build if it fails. Some Qualcomm files are not
     # well-formed (a comment before the XML declaration). They are blobs and stay untouched: the copy step installs them.
     import shutil as _sh
@@ -334,7 +342,7 @@ def main():
         with staging_directory(dst.parent) as root:
             stage, previous = root / 'generated', root / 'previous'
             stage.mkdir(); previous.mkdir()
-            for name in ('patches', 'ramdisk', 'lineage_vendor_installs.txt'):
+            for name in ('patches', 'policy', 'ramdisk', 'lineage_vendor_installs.txt'):
                 source = dst / name
                 if source.is_dir():
                     shutil.copytree(source, stage / name)

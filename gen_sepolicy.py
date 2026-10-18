@@ -47,6 +47,9 @@ known_types = set(open(KT).read().split())
 known_ctx = parse(open(KC))
 
 stock = [l.rstrip('\n') for l in open(os.path.join(src, 'etc/selinux/vendor_file_contexts'))]
+addition = os.path.join(dst, 'policy/vendor_file_contexts')
+if os.path.isfile(addition):
+    stock += open(addition).read().splitlines()
 def vendor_rule(l):
     s = l.strip()
     return bool(s) and not s.startswith('#') and s.split()[0].startswith(
