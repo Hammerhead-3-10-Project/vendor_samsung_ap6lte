@@ -1,0 +1,327 @@
+{
+  "schema_version": 1,
+  "status": "investigation_candidate_not_installed",
+  "repo": "GalaxyA20s/vendor_samsung_a20s",
+  "commit": "c708f666ab857d8c6ba1f1673715defa3a5fb3e8",
+  "firmware": "A207MUBS4CWF1 Android 11/API30",
+  "selection": "OMX cores/plugin, codec and color-conversion candidates, both ABIs; incomplete runtime closure",
+  "static_checks": {
+    "git_blob_integrity": true,
+    "elf_class_and_machine": true,
+    "android10_versioned_libc_libdl_libm_liblog_imports_checked": 449,
+    "imports_absent_from_these_android10_maps": 0
+  },
+  "limitations": [
+    "No Android build integration or device runtime testing.",
+    "libOmxCore/libmm-omxcore contain component registries; dlopen names must match installed codecs and media XML.",
+    "Encoder/decoder depend on compatible metadata and VIDC firmware/kernel interfaces.",
+    "libOmxBlackBar also needs OpenCL, ion and an architecture-matched libQSEEComAPI.",
+    "libc2dcolorconvert contains runtime references to libC2D2/libc2d2 and libadreno_utils; these are not all included here.",
+    "libhypv_intercept mentions libhyp_video_fe; runtime path selection is not established.",
+    "Map checks exclude unversioned C++/HIDL/platform imports and linker namespace resolution."
+  ],
+  "files": [
+    {
+      "path": "lib/libOmxBlackBar.so",
+      "size": 118460,
+      "git_blob": "26c0dceaa49845e9f4280429255f1d1dda5ab070",
+      "sha256": "adfb6d7c5c4de0ba326a1b72ae3898f423112b9376a4b3349f2ed2b325e56d48",
+      "bits": 32,
+      "machine": 40,
+      "needed": [
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libOpenCL.so",
+        "libion.so",
+        "libQSEEComAPI.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    {
+      "path": "lib/libOmxCore.so",
+      "size": 16772,
+      "git_blob": "e60ed20ddf75850c7613c381ae496802d0082bfd",
+      "sha256": "3b4caf883b59fab4185b72a6c1754e2d8bfe06c293a9043bf37bec3e9bdb545e",
+      "bits": 32,
+      "machine": 40,
+      "needed": [
+        "liblog.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    {
+      "path": "lib/libOmxVdec.so",
+      "size": 259048,
+      "git_blob": "ed28cda7ca8d625ce4f2af569bb7cef13f80e513",
+      "sha256": "4210d6f0434c54a00cff72b80b290ed818851273b675298ff51acf01f9b8e009",
+      "bits": 32,
+      "machine": 40,
+      "needed": [
+        "liblog.so",
+        "libcutils.so",
+        "libqdutils.so",
+        "libqdMetaData.so",
+        "libhypv_intercept.so",
+        "libOmxBlackBar.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    {
+      "path": "lib/libOmxVenc.so",
+      "size": 249740,
+      "git_blob": "2eeff98c976047f1a86e13887919c03b428b2b46",
+      "sha256": "f6b1592dd998617fec7b616d301db8a884264386bb6bc720cc2342b969028bbb",
+      "bits": 32,
+      "machine": 40,
+      "needed": [
+        "liblog.so",
+        "libcutils.so",
+        "libc2dcolorconvert.so",
+        "libhypv_intercept.so",
+        "libqdMetaData.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    {
+      "path": "lib/libc2dcolorconvert.so",
+      "size": 12164,
+      "git_blob": "b435400dff66a7294f703b03693f6ea24bcfbeea",
+      "sha256": "6cdf5f4fb1186a378da5cd3066abf7917ec6a8a14510f983a9734182ec214854",
+      "bits": 32,
+      "machine": 40,
+      "needed": [
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    {
+      "path": "lib/libhypv_intercept.so",
+      "size": 5052,
+      "git_blob": "854a317970c59f2c29927e8a5e7ea39e734fb2d2",
+      "sha256": "766d3ebc45d35ba11d18d493903098d7a2616d74a375beff5b9786007d344af8",
+      "bits": 32,
+      "machine": 40,
+      "needed": [
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    {
+      "path": "lib/libmm-color-convertor.so",
+      "size": 13484,
+      "git_blob": "2e9984ecc9146fb0e07b4c08f04610649262a11a",
+      "sha256": "d4b69aef9adcdd11ef19a6efcf4feaec53a33b0dca95af621445b1a73c78e393",
+      "bits": 32,
+      "machine": 40,
+      "needed": [
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    {
+      "path": "lib/libmm-omxcore.so",
+      "size": 20308,
+      "git_blob": "ff0becf554fac49125cf685df6a49399691a38d1",
+      "sha256": "34b68f9ae1f2aa9ee2c7ba6df9c0f232b1cd7df2deb9036d0293e4f516f31a5f",
+      "bits": 32,
+      "machine": 40,
+      "needed": [
+        "liblog.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    {
+      "path": "lib/libstagefrighthw.so",
+      "size": 5676,
+      "git_blob": "f66bf0269cfb18850ce9c998f561c231fa4fd4af",
+      "sha256": "cb545f98b6af4f9029c99bba911035e4f6be9479a693807a3df6773e791226fe",
+      "bits": 32,
+      "machine": 40,
+      "needed": [
+        "libutils.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    {
+      "path": "lib64/libOmxBlackBar.so",
+      "size": 165944,
+      "git_blob": "a58ea02bab7bede97aeb0ce441d0d61b731fa4ac",
+      "sha256": "804e9c9cdf625184b69e1789a87424b793d88156b716dae85241341daf3812d5",
+      "bits": 64,
+      "machine": 183,
+      "needed": [
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libOpenCL.so",
+        "libion.so",
+        "libQSEEComAPI.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    {
+      "path": "lib64/libOmxCore.so",
+      "size": 28464,
+      "git_blob": "e6d00c60c38c559edf7e17552212d9094ee7cfd0",
+      "sha256": "82f05e3c01cd881810c67c3258b5bb3783e25d488cadaee1d99248670a109feb",
+      "bits": 64,
+      "machine": 183,
+      "needed": [
+        "liblog.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    {
+      "path": "lib64/libOmxVdec.so",
+      "size": 318728,
+      "git_blob": "dd3397f41683b65ed39d50756ef7381852484b2c",
+      "sha256": "84232a4b425b4ab3d70c6e0bf320396ca93560b3215bf82edc86ba2793455ac6",
+      "bits": 64,
+      "machine": 183,
+      "needed": [
+        "liblog.so",
+        "libcutils.so",
+        "libqdutils.so",
+        "libqdMetaData.so",
+        "libhypv_intercept.so",
+        "libOmxBlackBar.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    {
+      "path": "lib64/libOmxVenc.so",
+      "size": 302544,
+      "git_blob": "c93cd77c587f2818985a3017ce3dd473826f8a77",
+      "sha256": "d54e04a250f49f85d0688840adb60d668657528a3ff6ad9de2020c70d7540783",
+      "bits": 64,
+      "machine": 183,
+      "needed": [
+        "liblog.so",
+        "libcutils.so",
+        "libc2dcolorconvert.so",
+        "libhypv_intercept.so",
+        "libqdMetaData.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    {
+      "path": "lib64/libc2dcolorconvert.so",
+      "size": 19720,
+      "git_blob": "bd7206cdb9522ad491df3c1f79c96a92faddaed9",
+      "sha256": "299fa5e8fa2cb2bc38fd697c1b80fa7d0a4e2c8daf3670913e1e48b70d821ac2",
+      "bits": 64,
+      "machine": 183,
+      "needed": [
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    {
+      "path": "lib64/libhypv_intercept.so",
+      "size": 11128,
+      "git_blob": "0b4b13ebd3f0cf7f6c235c0f0388e6ba45774adf",
+      "sha256": "f93be823f3436ae60aa8b20db16c3f556f3b12bda9d061fecaf33e098d7f7060",
+      "bits": 64,
+      "machine": 183,
+      "needed": [
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    {
+      "path": "lib64/libmm-color-convertor.so",
+      "size": 19248,
+      "git_blob": "c9ec3e09480d422da0d7bb11364b40a26962d5e7",
+      "sha256": "c2ed2ea55d871be9e869fe2e9d7bb90924f8b97569d40d636024da7fa54d0cb7",
+      "bits": 64,
+      "machine": 183,
+      "needed": [
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    {
+      "path": "lib64/libmm-omxcore.so",
+      "size": 36760,
+      "git_blob": "98947fbba41040e584512d634d3bb64be689c9dd",
+      "sha256": "51df3ea7091c7a8e96f391a449bb6b00d76dcf9702baa54044dbcca871478a8d",
+      "bits": 64,
+      "machine": 183,
+      "needed": [
+        "liblog.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    {
+      "path": "lib64/libstagefrighthw.so",
+      "size": 11400,
+      "git_blob": "3306275a88f8138602044855f704ca5b7e4b2f75",
+      "sha256": "22eedbad6b37b036e844873d7e738f076baf5a89548951195f5acb47b1944962",
+      "bits": 64,
+      "machine": 183,
+      "needed": [
+        "libutils.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    }
+  ]
+}

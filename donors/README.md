@@ -58,3 +58,38 @@ must fail. Struct layouts and opaque handles are not checked by comparing export
 
 Detailed host evidence and reproducer scripts are in the project directory at
 `reports/arm64-migration-20261018/`. No candidate has been flashed, run or benchmarked on A6+.
+
+## Additional media candidates (2026-10-18)
+
+`a20s-media.json` pins 18 ARM32/ARM64 files from the same donor: libOmxCore, libmm-omxcore,
+libstagefrighthw, libOmxVdec, libOmxVenc, libOmxBlackBar, libhypv_intercept, libc2dcolorconvert and
+libmm-color-convertor. The existing fetcher verifies them in the external scratch directory:
+
+```sh
+python3 donors/fetch.py donors/a20s-media.json /path/outside/vendor/a20s-candidate
+```
+
+These candidates broaden the migration inventory; no codec has been enabled in the product. The core
+registries and plugin are reasonable early migration targets, along with color conversion, but their
+runtime closure must match the actual installed codec set. Strings in the core registries name multiple
+video and audio components; not every named component is necessarily exercised or installed.
+
+Twenty additional media/RenderScript samples were inspected, including the 18 manifest entries, with
+472 versioned libc/libdl/libm/liblog imports matching the Android 10 maps. This does not cover C++ ABI,
+struct layouts, namespaces or runtime-loaded libraries. The exact media-only count is in the manifest.
+New dependency findings:
+
+- libstagefrighthw loads libOmxCore dynamically; libOmxCore/libmm-omxcore have component registries.
+  Media XML and the OMX service's ABI/component selection must agree with the libraries installed.
+- libc2dcolorconvert mentions libC2D2.so/libc2d2.so and libadreno_utils.so through runtime loading.
+  libhypv_intercept mentions libhyp_video_fe.so. Which optional paths execute is unverified.
+- libOmxBlackBar requires libOpenCL, libion and libQSEEComAPI. Importing that library is not a reason
+  to replace Samsung secure-world firmware, keys or the working stock TEE services. A matching ARM64
+  client library and its contracts would need verification if the ARM64 path is enabled.
+- The A20s RenderScript HAL mentions the private libRS_internal.so. Prefer building the Android 10
+  source implementation for ARM64 and ARM32 rather than importing an Android 11 HAL tied to private
+  internals. The donor tree still lacks ARM64 libRSDriver_adreno.so; a tested source/software path is needed.
+
+For the first experimental product, evaluate OMX plugin/core and conversion helpers with the graphics
+package. Keep encoder/decoder activation as a separately testable change after their metadata, firmware
+and VIDC dependencies are resolved. Perf and thermal retain their device-specific checks documented above.
