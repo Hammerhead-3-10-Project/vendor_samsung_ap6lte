@@ -26,6 +26,15 @@ Regenerate (dump = `firmware/extracted/vendor`, made with `debugfs -R "rdump / d
 
     python3 gen_vendor.py <stock vendor dump> .
 
+The output repository must already exist and contain `ramdisk/init`, `ramdisk/dpolicy` and a non-empty
+`lineage_vendor_installs.txt`. Optional arguments are `<build out directory|none> [stock boot ramdisk directory]`.
+`none` keeps the collision snapshot; an existing build output directory without vendor install rules is rejected.
+Source and output directories must not overlap. The generator validates required stock files, generates and applies
+patches in a private staging directory, then publishes the generated paths. Generation failures leave the current
+output untouched; publication errors roll back replaced paths. If rollback itself fails, old files are retained
+in the reported staging directory. Publication spans several files and is not atomic against power loss; run it
+while no build or other generator is using the output tree.
+
 The SELinux labels of the files come from `vendor_file_contexts` at build time (as in the stock build), the
 capabilities from `config.fs`. The Samsung `security.five` file-integrity xattrs cannot be reproduced.
 
