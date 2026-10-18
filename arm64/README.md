@@ -36,3 +36,7 @@ The real Android ELF checks and Samsung runtime-policy validation pass in the is
 The fifteen checked files are required before the vendor overlay/image is made. No allow-undefined-symbol
 exception or disabled ELF check is used. Full OTA packaging, buffer/metadata interoperability and hardware
 runtime behavior remain untested; these source/build results do not certify a successful device boot.
+
+`verify-blobs.py` also enforces the pinned/fixed hashes and AArch64 ELF headers during the build.
+This is required alongside the ELF checks: Android's generic checker can skip non-ELF inputs.
+A source file accidentally replacing a blob must fail the image build, not be skipped as non-ELF.
