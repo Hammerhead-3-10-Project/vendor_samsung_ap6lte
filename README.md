@@ -79,3 +79,9 @@ The boot ramdisk path follows `PRODUCT_OUT`, including custom `OUT_DIR` builds.
 vendor overlay and vendor.img are built. `m a6plte-runtime-policy` runs this check on its own. It also checks
 all runtime vendor file contexts and the newly added property/hwservice contexts. This is an offline build
 check; it does not load policy on a phone or establish hardware functionality.
+
+## ARM64 donor investigation
+
+See [donors/README.md](donors/README.md) and the pinned A20s GPU manifest. Android 11 donor blobs are
+evaluated by their real ABI requirements; they are not rejected solely for their Android version.
+Candidate downloads stay outside this repository and are not enabled in the current product.
