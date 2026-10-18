@@ -74,3 +74,8 @@ the existing Samsung fingerprint HAL already exports the standard 2.1 interface.
 also selected there. Enrollment, NFC transactions and Trustonic startup still require a full-ROM boot test.
 
 The boot ramdisk path follows `PRODUCT_OUT`, including custom `OUT_DIR` builds.
+
+`runtime-policy.mk` validates the installed Samsung policy against the ROM platform/mapping before the
+vendor overlay and vendor.img are built. `m a6plte-runtime-policy` runs this check on its own. It also checks
+all runtime vendor file contexts and the newly added property/hwservice contexts. This is an offline build
+check; it does not load policy on a phone or establish hardware functionality.

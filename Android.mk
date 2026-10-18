@@ -3,6 +3,8 @@ LOCAL_PATH := $(call my-dir)
 
 ifeq ($(TARGET_DEVICE),a6plte)
 
+include $(LOCAL_PATH)/runtime-policy.mk
+
 # Symbolic links and empty directories of the stock vendor (PRODUCT_COPY_FILES can create neither).
 include $(CLEAR_VARS)
 LOCAL_MODULE := a6plte_vendor_links
@@ -30,7 +32,7 @@ $(a6plte_overlay_stamp): PRIVATE_DST := $(TARGET_OUT_VENDOR)
 $(a6plte_overlay_stamp): PRIVATE_OVERLAY := $(a6plte_overlay_files)
 $(a6plte_overlay_stamp): PRIVATE_SELINUX := $(a6plte_selinux_files)
 $(a6plte_overlay_stamp): PRIVATE_REMOVE := $(a6plte_remove_files)
-$(a6plte_overlay_stamp): $(addprefix $(LOCAL_PATH)/proprietary/vendor/,$(a6plte_overlay_files)) $(addprefix $(LOCAL_PATH)/proprietary/selinux/,$(a6plte_selinux_files)) $(PRODUCT_OUT)/installed-files-vendor.txt
+$(a6plte_overlay_stamp): $(addprefix $(LOCAL_PATH)/proprietary/vendor/,$(a6plte_overlay_files)) $(addprefix $(LOCAL_PATH)/proprietary/selinux/,$(a6plte_selinux_files)) $(PRODUCT_OUT)/installed-files-vendor.txt $(a6plte_runtime_policy)
 	@echo "Samsung vendor files over the generated ones: $(words $(PRIVATE_OVERLAY)) + $(words $(PRIVATE_SELINUX)) SELinux"
 	$(hide) mkdir -p $(PRIVATE_DST)/etc/selinux $(dir $@)
 	$(hide) for f in $(PRIVATE_OVERLAY); do mkdir -p $(PRIVATE_DST)/$$(dirname $$f); rm -f $(PRIVATE_DST)/$$f; cp -p $(PRIVATE_SRC)/vendor/$$f $(PRIVATE_DST)/$$f; done
