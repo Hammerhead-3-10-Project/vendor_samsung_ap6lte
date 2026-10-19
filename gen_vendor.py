@@ -153,6 +153,11 @@ def generate(src, dst, LINEAGE_OUT, RAMDISK_SRC):
                 copies.remove(c); overlay.append(c); bad_xml.append(c)
     else:
         print('WARNING: xmllint not found, the .xml files were not checked')
+    # Android 11 rejects VINTF metadata in PRODUCT_COPY_FILES (build/make/core/Makefile): the stock manifest fragments
+    # are installed by the overlay step instead.
+    for c in list(copies):
+        if c.startswith('etc/vintf/'):
+            copies.remove(c); overlay.append(c)
     before = len(links)
     links = [(p, t) for p, t in links if not (os.path.basename(t) in LINK_TARGETS_LINEAGE)]
     dropped_links = before - len(links)

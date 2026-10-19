@@ -37,6 +37,9 @@ etc/init/android.hardware.wifi@1.0-service.rc
 etc/init/ipacm.rc
 etc/vintf/manifest/android.hardware.atrace@1.0-service.xml
 etc/vintf/manifest/android.hardware.cas@1.1-service.xml
+etc/vintf/manifest/android.hardware.gnss@2.0-service-qti.xml
+etc/vintf/manifest/vendor.qti.gnss@3.0-service.xml
+etc/vintf/manifest/vendor.samsung.hardware.base@1.0-service.xml
 lib/android.hardware.audio.common-util.so
 lib/android.hardware.audio.common@2.0-util.so
 lib/android.hardware.audio.common@4.0-util.so
