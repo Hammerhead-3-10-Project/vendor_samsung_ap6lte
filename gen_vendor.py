@@ -37,7 +37,7 @@ def generate(src, dst, LINEAGE_OUT, RAMDISK_SRC):
     if LINEAGE_OUT:
         # Every file the Lineage build has a rule for under /vendor (Soong and Android.mk modules), from the ninja files.
         import glob, re
-        pat = re.compile(r'out/target/product/[^/\s:$|]+/vendor/[^\s:$|]+')
+        pat = re.compile(r'out[^/\s]*/target/product/[^/\s:$|]+/vendor/[^\s:$|]+')
         found = set()
         for f in glob.glob(LINEAGE_OUT + '/*.ninja') + [LINEAGE_OUT + '/soong/build.ninja']:
             if not os.path.isfile(f):
