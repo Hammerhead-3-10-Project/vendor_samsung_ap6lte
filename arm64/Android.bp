@@ -150,3 +150,51 @@ cc_prebuilt_library_shared {
 }
 
 // Export the Android 10 inline tracing API for Android 11 Adreno clients.
+
+// Android 11 donor gralloc stack: gralloc/libqdMetaData/libgralloc.qti must come from the same
+// set as the donor GL driver (GET_GRAPHICS_METADATA, mapper 4.0 metadata).
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_libgrallocutils",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "libgrallocutils_a11",
+    srcs: ["blobs/lib64/libgrallocutils_a11.so"],
+    shared_libs: ["a6plte_arm64_libqdMetaData", "libutils", "libcutils", "libhardware", "android.hardware.graphics.common@1.1", "liblog", "libc++"],
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_libqdMetaData",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "libqdMetaData_a11",
+    srcs: ["blobs/lib64/libqdMetaData_a11.so"],
+    shared_libs: ["a6plte_arm64_libgralloc.qti", "libgralloctypes", "libhidlbase", "libutils", "libcutils", "liblog", "libc++"],
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_libgralloc.qti",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "libgralloc.qti",
+    srcs: ["blobs/lib64/libgralloc.qti.so"],
+    shared_libs: ["libgralloctypes", "libhidlbase", "libhardware", "android.hardware.graphics.mapper@4.0", "libutils", "libcutils", "liblog", "libc++"],
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_gralloc.msm8953",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "gralloc.a11",
+    srcs: ["blobs/lib64/hw/gralloc.a11.so"],
+    shared_libs: ["a6plte_arm64_libqdMetaData", "a6plte_arm64_libgrallocutils", "libsync", "libutils", "libcutils", "libhardware", "android.hardware.graphics.common@1.1", "liblog", "libc++"],
+    relative_install_path: "hw",
+}
+
+cc_prebuilt_library_shared {
+    name: "a6plte_arm64_libdisplayconfig.qti",
+    defaults: ["a6plte_arm64_blob_defaults"],
+    check_elf_files: true,
+    stem: "libdisplayconfig.qti",
+    srcs: ["blobs/lib64/libdisplayconfig.qti.so"],
+    shared_libs: ["liblog", "libhidlbase", "libutils", "vendor.display.config@2.0", "libc++"],
+}

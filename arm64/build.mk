@@ -26,3 +26,25 @@ a6plte_arm64_elf_checks := $(foreach module,$(A6PLTE_ARM64_PREBUILT_MODULES),$(c
 a6plte-arm64-elf-checks: $(a6plte_arm64_elf_checks)
 # Check even when a caller builds vendor.img directly or packages a full OTA.
 $(PRODUCT_OUT)/vendor.img: $(a6plte_arm64_elf_checks)
+
+# Donor display composer. Its dependencies (libdrmutils, libgpu_tonemapper, ...) are Make
+# modules that Soong cannot see, so these are declared here as ELF-checked Make prebuilts.
+define a6plte-arm64-donor-lib
+include $$(CLEAR_VARS)
+LOCAL_MODULE := $(1)
+LOCAL_MODULE_STEM := $(2)
+LOCAL_SRC_FILES := arm64/blobs/lib64/$(3)$(2).so
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_SUFFIX := .so
+LOCAL_MODULE_RELATIVE_PATH := $(3)
+LOCAL_MULTILIB := 64
+LOCAL_VENDOR_MODULE := true
+LOCAL_MODULE_TAGS := optional
+LOCAL_STRIP_MODULE := false
+LOCAL_CHECK_ELF_FILES := true
+LOCAL_SHARED_LIBRARIES := $(4)
+include $$(BUILD_PREBUILT)
+endef
+$(eval $(call a6plte-arm64-donor-lib,a6plte_arm64_libsdmutils,libsdmutils_a11,,libc++))
+$(eval $(call a6plte-arm64-donor-lib,a6plte_arm64_libsdmcore,libsdmcore_a11,,a6plte_arm64_libsdmutils libdrm libdrmutils libc++))
+$(eval $(call a6plte-arm64-donor-lib,a6plte_arm64_hwcomposer.msm8953,hwcomposer.a11,hw/,a6plte_arm64_libsdmcore a6plte_arm64_libsdmutils a6plte_arm64_libqdMetaData a6plte_arm64_libgrallocutils libqservice libbinder libhardware libhardware_legacy libutils libcutils libsync libqdutils libdrmutils libc++ liblog vendor.display.config@2.0 libhidlbase libhidltransport a6plte_arm64_libdisplayconfig.qti libui libgpu_tonemapper))

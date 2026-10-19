@@ -14,4 +14,12 @@ A6PLTE_ARM64_PREBUILT_MODULES := \
     a6plte_arm64_libllvm-glnext \
     a6plte_arm64_libllvm-qcom \
     a6plte_arm64_libmm-color-convertor \
-    a6plte_arm64_libC2D2
+    a6plte_arm64_libC2D2 \
+    a6plte_arm64_libgrallocutils \
+    a6plte_arm64_libqdMetaData \
+    a6plte_arm64_libgralloc.qti \
+    a6plte_arm64_gralloc.msm8953 \
+    a6plte_arm64_libsdmutils \
+    a6plte_arm64_libsdmcore \
+    a6plte_arm64_libdisplayconfig.qti \
+    a6plte_arm64_hwcomposer.msm8953

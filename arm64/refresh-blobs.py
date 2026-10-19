@@ -49,14 +49,20 @@ def main():
                 fixup = fixups[relative]
                 if digest != fixup['source_sha256']:
                     raise RuntimeError('Fixup source mismatch: ' + relative)
-                subprocess.run([str(args.patchelf), '--add-needed', fixup['add_needed'], str(staged)],
-                               check=True)
+                command = [str(args.patchelf)]
+                if fixup.get('add_needed'):
+                    command += ['--add-needed', fixup['add_needed']]
+                if fixup.get('set_soname'):
+                    command += ['--set-soname', fixup['set_soname']]
+                for old, new in sorted(fixup.get('replace_needed', {}).items()):
+                    command += ['--replace-needed', old, new]
+                subprocess.run(command + [str(staged)], check=True)
                 patched = staged.read_bytes()
                 if hashlib.sha256(patched).hexdigest() != fixup['patched_sha256']:
                     raise RuntimeError('Patched hash differs; review the patchelf version: ' + relative)
                 if executable_sections(data) != executable_sections(patched):
                     raise RuntimeError('Executable section changed: ' + relative)
-            prepared.append((staged, ROOT / 'blobs' / relative))
+            prepared.append((staged, ROOT / 'blobs' / fixup.get('install_path', relative) if relative in fixups else ROOT / 'blobs' / relative))
         # Validate the entire set before replacing any tracked blob. Run while builds are idle.
         for source, destination in prepared:
             destination.parent.mkdir(parents=True, exist_ok=True)

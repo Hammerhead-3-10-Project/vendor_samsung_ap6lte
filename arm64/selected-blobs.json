@@ -1,306 +1,496 @@
 {
-  "repo": "GalaxyA20s/vendor_samsung_a20s",
-  "commit": "c708f666ab857d8c6ba1f1673715defa3a5fb3e8",
-  "files": [
-    {
-      "path": "lib64/egl/eglSubDriverAndroid.so",
-      "size": 48288,
-      "git_blob": "5b8be438fc559df3140765d5ae2415a4a64def33",
-      "sha256": "3035453d19a2161eb3b64979c45a7cfdf3c0a71247165947e5b734a278e81f13",
-      "bits": 64,
-      "machine": 183,
-      "needed": [
-        "libEGL_adreno.so",
-        "libcutils.so",
-        "libhardware.so",
-        "libgsl.so",
-        "libdl.so",
-        "libz.so",
-        "liblog.so",
-        "libc++.so",
-        "libc.so",
-        "libm.so"
-      ],
-      "soname": [
-        "eglSubDriverAndroid.so"
-      ]
-    },
-    {
-      "path": "lib64/egl/libEGL_adreno.so",
-      "size": 39864,
-      "git_blob": "738d174f4dbfcf900349da643a405386a5d8657f",
-      "sha256": "aa85301670c9785ff5d5db7ec4837102e823395a3f1c76813aa75f679703c648",
-      "bits": 64,
-      "machine": 183,
-      "needed": [
-        "libadreno_utils.so",
-        "libgsl.so",
-        "libcutils.so",
-        "libdl.so",
-        "libz.so",
-        "liblog.so",
-        "libc++.so",
-        "libc.so",
-        "libm.so"
-      ],
-      "soname": [
-        "libEGL_adreno.so"
-      ]
-    },
-    {
-      "path": "lib64/egl/libGLESv1_CM_adreno.so",
-      "size": 233824,
-      "git_blob": "8f5e08287c9ded0b8cbdb0d5273aa30768ed3203",
-      "sha256": "3b4947e61b7e4faf34f5de7d414769a1744407b66538c53ef7deb7c332cd7ec7",
-      "bits": 64,
-      "machine": 183,
-      "needed": [
-        "libgsl.so",
-        "libcutils.so",
-        "libdl.so",
-        "libz.so",
-        "liblog.so",
-        "libc++.so",
-        "libc.so",
-        "libm.so"
-      ],
-      "soname": [
-        "libGLESv1_CM_adreno.so"
-      ]
-    },
-    {
-      "path": "lib64/egl/libGLESv2_adreno.so",
-      "size": 3525072,
-      "git_blob": "ed0bd508882348140f5ef80debb519080019031d",
-      "sha256": "92fa9b131dac2b87cd44bff5f474412154cca4751b9d6af8ff52a8c10b4294da",
-      "bits": 64,
-      "machine": 183,
-      "needed": [
-        "libadreno_utils.so",
-        "libgsl.so",
-        "libllvm-glnext.so",
-        "libcutils.so",
-        "libdl.so",
-        "libz.so",
-        "liblog.so",
-        "libc++.so",
-        "libc.so",
-        "libm.so"
-      ],
-      "soname": [
-        "libGLESv2_adreno.so"
-      ]
-    },
-    {
-      "path": "lib64/egl/libq3dtools_adreno.so",
-      "size": 239856,
-      "git_blob": "55fb052c7cb1217f6305d788bce98b8e1427dee8",
-      "sha256": "a645199627f0e1ba337b3ed2a7f2ca08d7fd0ef2f130f12875c33e91c87dd8ae",
-      "bits": 64,
-      "machine": 183,
-      "needed": [
-        "libcutils.so",
-        "liblog.so",
-        "libgsl.so",
-        "libc++.so",
-        "libc.so",
-        "libm.so",
-        "libdl.so"
-      ],
-      "soname": [
-        "libq3dtools_adreno.so"
-      ]
-    },
-    {
-      "path": "lib64/egl/libq3dtools_esx.so",
-      "size": 1522456,
-      "git_blob": "044745f55739e22098872fb76079059b601d25a9",
-      "sha256": "c185669a680fa9fe062ac7cf878696b40a2c46b3c3e425646a78303a679731da",
-      "bits": 64,
-      "machine": 183,
-      "needed": [
-        "libcutils.so",
-        "liblog.so",
-        "libz.so",
-        "libdl.so",
-        "libc++.so",
-        "libc.so",
-        "libm.so"
-      ],
-      "soname": [
-        "libq3dtools_esx.so"
-      ]
-    },
-    {
-      "path": "lib64/hw/vulkan.adreno.so",
-      "size": 1402024,
-      "git_blob": "27c9cc032699271991c2e00c32216e13ba1f925a",
-      "sha256": "784e6c5b7ca669765524aa491d29d7f8a0f766bbc9d037b504f05ab565d44dc7",
-      "bits": 64,
-      "machine": 183,
-      "needed": [
-        "libadreno_utils.so",
-        "libgsl.so",
-        "libz.so",
-        "liblog.so",
-        "libllvm-glnext.so",
-        "libcutils.so",
-        "libhardware.so",
-        "libnativewindow.so",
-        "libc++.so",
-        "libc.so",
-        "libm.so",
-        "libdl.so"
-      ],
-      "soname": [
-        "vulkan.adreno.so"
-      ]
-    },
-    {
-      "path": "lib64/libCB.so",
-      "size": 3140176,
-      "git_blob": "193cee3510abc5852544e00e09d643d127c46761",
-      "sha256": "dabd103f0cdad085414685a4f7544b4059424b18c517516ef98a90ec5e5d2333",
-      "bits": 64,
-      "machine": 183,
-      "needed": [
-        "libcutils.so",
-        "liblog.so",
-        "libgsl.so",
-        "libutils.so",
-        "libvndksupport.so",
-        "libc++.so",
-        "libc.so",
-        "libm.so",
-        "libdl.so"
-      ],
-      "soname": [
-        "libCB.so"
-      ]
-    },
-    {
-      "path": "lib64/libOpenCL.so",
-      "size": 115112,
-      "git_blob": "a567647b423aa14fea66ab31cde8603f71ceddd6",
-      "sha256": "a3d46de71249e2fcc0f1b355462cd6affa202ae0e11ae8a8ada3b070fc722684",
-      "bits": 64,
-      "machine": 183,
-      "needed": [
-        "libcutils.so",
-        "libvndksupport.so",
-        "libc++.so",
-        "libc.so",
-        "libm.so",
-        "libdl.so"
-      ],
-      "soname": [
-        "libOpenCL.so"
-      ]
-    },
-    {
-      "path": "lib64/libadreno_utils.so",
-      "size": 81376,
-      "git_blob": "435d3526ab01c03ba00d0e5a26b8c3fc84151def",
-      "sha256": "cede8beed4b1801c89a23aef5ed5d689060d5139aefa987265697934ef38a843",
-      "bits": 64,
-      "machine": 183,
-      "needed": [
-        "libgsl.so",
-        "libc++.so",
-        "libc.so",
-        "libm.so",
-        "libdl.so"
-      ],
-      "soname": [
-        "libadreno_utils.so"
-      ]
-    },
-    {
-      "path": "lib64/libgsl.so",
-      "size": 2129904,
-      "git_blob": "5a37b390c84ca8b876b33ee34d84a86a057b9fe6",
-      "sha256": "a807fedc5309815daf71f7d19017aa55fcef3d2829efe9b9f7e13fad6e99e1f3",
-      "bits": 64,
-      "machine": 183,
-      "needed": [
-        "libcutils.so",
-        "liblog.so",
-        "libz.so",
-        "libsync.so",
-        "libc++.so",
-        "libc.so",
-        "libm.so",
-        "libdl.so"
-      ],
-      "soname": [
-        "libgsl.so"
-      ]
-    },
-    {
-      "path": "lib64/libllvm-glnext.so",
-      "size": 13644928,
-      "git_blob": "ad8d34e7dce4dffce2953c30d6f719325ca8d7b1",
-      "sha256": "1a14915c0f4ca8ab86d3f7cdf739c16bf720f5eeb7ae6bc72f600db6efe23dfe",
-      "bits": 64,
-      "machine": 183,
-      "needed": [
-        "libgsl.so",
-        "libc++.so",
-        "libc.so",
-        "libm.so",
-        "libdl.so"
-      ],
-      "soname": [
-        "libllvm-glnext.so"
-      ]
-    },
-    {
-      "path": "lib64/libllvm-qcom.so",
-      "size": 30043888,
-      "git_blob": "1d1cb0a3da13c6fce82161ddd1086f8701e9bb8f",
-      "sha256": "9dfaeb5a4d7737414a26de524be1d77037d459103ec591aa641ab08ad43e8869",
-      "bits": 64,
-      "machine": 183,
-      "needed": [
-        "libc++.so",
-        "libc.so",
-        "libm.so",
-        "libdl.so"
-      ],
-      "soname": [
-        "libllvm-qcom.so"
-      ]
-    },
-    {
-      "path": "lib64/libmm-color-convertor.so",
-      "size": 19248,
-      "git_blob": "c9ec3e09480d422da0d7bb11364b40a26962d5e7",
-      "sha256": "c2ed2ea55d871be9e869fe2e9d7bb90924f8b97569d40d636024da7fa54d0cb7",
-      "bits": 64,
-      "machine": 183,
-      "needed": [
-        "libc++.so",
-        "libc.so",
-        "libm.so",
-        "libdl.so"
-      ]
-    },
-    {
-      "path": "lib64/libC2D2.so",
-      "size": 194040,
-      "git_blob": "42594facf735a4b43a56b93d305bd3d1e9bbb44b",
-      "sha256": "f75eda900882c790e0f95a833777cd624a9f71cd9a0425f7ee7d81ab9b61ab02",
-      "bits": 64,
-      "machine": 183,
-      "needed": [
-        "libgsl.so",
-        "libcutils.so",
-        "libutils.so",
-        "libc++.so",
-        "libc.so",
-        "libm.so",
-        "libdl.so"
-      ]
-    }
-  ]
+ "repo": "GalaxyA20s/vendor_samsung_a20s",
+ "commit": "c708f666ab857d8c6ba1f1673715defa3a5fb3e8",
+ "files": [
+  {
+   "path": "lib64/egl/eglSubDriverAndroid.so",
+   "size": 48288,
+   "git_blob": "5b8be438fc559df3140765d5ae2415a4a64def33",
+   "sha256": "3035453d19a2161eb3b64979c45a7cfdf3c0a71247165947e5b734a278e81f13",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "libEGL_adreno.so",
+    "libcutils.so",
+    "libhardware.so",
+    "libgsl.so",
+    "libdl.so",
+    "libz.so",
+    "liblog.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so"
+   ],
+   "soname": [
+    "eglSubDriverAndroid.so"
+   ]
+  },
+  {
+   "path": "lib64/egl/libEGL_adreno.so",
+   "size": 39864,
+   "git_blob": "738d174f4dbfcf900349da643a405386a5d8657f",
+   "sha256": "aa85301670c9785ff5d5db7ec4837102e823395a3f1c76813aa75f679703c648",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "libadreno_utils.so",
+    "libgsl.so",
+    "libcutils.so",
+    "libdl.so",
+    "libz.so",
+    "liblog.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so"
+   ],
+   "soname": [
+    "libEGL_adreno.so"
+   ]
+  },
+  {
+   "path": "lib64/egl/libGLESv1_CM_adreno.so",
+   "size": 233824,
+   "git_blob": "8f5e08287c9ded0b8cbdb0d5273aa30768ed3203",
+   "sha256": "3b4947e61b7e4faf34f5de7d414769a1744407b66538c53ef7deb7c332cd7ec7",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "libgsl.so",
+    "libcutils.so",
+    "libdl.so",
+    "libz.so",
+    "liblog.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so"
+   ],
+   "soname": [
+    "libGLESv1_CM_adreno.so"
+   ]
+  },
+  {
+   "path": "lib64/egl/libGLESv2_adreno.so",
+   "size": 3525072,
+   "git_blob": "ed0bd508882348140f5ef80debb519080019031d",
+   "sha256": "92fa9b131dac2b87cd44bff5f474412154cca4751b9d6af8ff52a8c10b4294da",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "libadreno_utils.so",
+    "libgsl.so",
+    "libllvm-glnext.so",
+    "libcutils.so",
+    "libdl.so",
+    "libz.so",
+    "liblog.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so"
+   ],
+   "soname": [
+    "libGLESv2_adreno.so"
+   ]
+  },
+  {
+   "path": "lib64/egl/libq3dtools_adreno.so",
+   "size": 239856,
+   "git_blob": "55fb052c7cb1217f6305d788bce98b8e1427dee8",
+   "sha256": "a645199627f0e1ba337b3ed2a7f2ca08d7fd0ef2f130f12875c33e91c87dd8ae",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "libcutils.so",
+    "liblog.so",
+    "libgsl.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+   ],
+   "soname": [
+    "libq3dtools_adreno.so"
+   ]
+  },
+  {
+   "path": "lib64/egl/libq3dtools_esx.so",
+   "size": 1522456,
+   "git_blob": "044745f55739e22098872fb76079059b601d25a9",
+   "sha256": "c185669a680fa9fe062ac7cf878696b40a2c46b3c3e425646a78303a679731da",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "libcutils.so",
+    "liblog.so",
+    "libz.so",
+    "libdl.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so"
+   ],
+   "soname": [
+    "libq3dtools_esx.so"
+   ]
+  },
+  {
+   "path": "lib64/hw/vulkan.adreno.so",
+   "size": 1402024,
+   "git_blob": "27c9cc032699271991c2e00c32216e13ba1f925a",
+   "sha256": "784e6c5b7ca669765524aa491d29d7f8a0f766bbc9d037b504f05ab565d44dc7",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "libadreno_utils.so",
+    "libgsl.so",
+    "libz.so",
+    "liblog.so",
+    "libllvm-glnext.so",
+    "libcutils.so",
+    "libhardware.so",
+    "libnativewindow.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+   ],
+   "soname": [
+    "vulkan.adreno.so"
+   ]
+  },
+  {
+   "path": "lib64/libCB.so",
+   "size": 3140176,
+   "git_blob": "193cee3510abc5852544e00e09d643d127c46761",
+   "sha256": "dabd103f0cdad085414685a4f7544b4059424b18c517516ef98a90ec5e5d2333",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "libcutils.so",
+    "liblog.so",
+    "libgsl.so",
+    "libutils.so",
+    "libvndksupport.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+   ],
+   "soname": [
+    "libCB.so"
+   ]
+  },
+  {
+   "path": "lib64/libOpenCL.so",
+   "size": 115112,
+   "git_blob": "a567647b423aa14fea66ab31cde8603f71ceddd6",
+   "sha256": "a3d46de71249e2fcc0f1b355462cd6affa202ae0e11ae8a8ada3b070fc722684",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "libcutils.so",
+    "libvndksupport.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+   ],
+   "soname": [
+    "libOpenCL.so"
+   ]
+  },
+  {
+   "path": "lib64/libadreno_utils.so",
+   "size": 81376,
+   "git_blob": "435d3526ab01c03ba00d0e5a26b8c3fc84151def",
+   "sha256": "cede8beed4b1801c89a23aef5ed5d689060d5139aefa987265697934ef38a843",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "libgsl.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+   ],
+   "soname": [
+    "libadreno_utils.so"
+   ]
+  },
+  {
+   "path": "lib64/libgsl.so",
+   "size": 2129904,
+   "git_blob": "5a37b390c84ca8b876b33ee34d84a86a057b9fe6",
+   "sha256": "a807fedc5309815daf71f7d19017aa55fcef3d2829efe9b9f7e13fad6e99e1f3",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "libcutils.so",
+    "liblog.so",
+    "libz.so",
+    "libsync.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+   ],
+   "soname": [
+    "libgsl.so"
+   ]
+  },
+  {
+   "path": "lib64/libllvm-glnext.so",
+   "size": 13644928,
+   "git_blob": "ad8d34e7dce4dffce2953c30d6f719325ca8d7b1",
+   "sha256": "1a14915c0f4ca8ab86d3f7cdf739c16bf720f5eeb7ae6bc72f600db6efe23dfe",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "libgsl.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+   ],
+   "soname": [
+    "libllvm-glnext.so"
+   ]
+  },
+  {
+   "path": "lib64/libllvm-qcom.so",
+   "size": 30043888,
+   "git_blob": "1d1cb0a3da13c6fce82161ddd1086f8701e9bb8f",
+   "sha256": "9dfaeb5a4d7737414a26de524be1d77037d459103ec591aa641ab08ad43e8869",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+   ],
+   "soname": [
+    "libllvm-qcom.so"
+   ]
+  },
+  {
+   "path": "lib64/libmm-color-convertor.so",
+   "size": 19248,
+   "git_blob": "c9ec3e09480d422da0d7bb11364b40a26962d5e7",
+   "sha256": "c2ed2ea55d871be9e869fe2e9d7bb90924f8b97569d40d636024da7fa54d0cb7",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+   ]
+  },
+  {
+   "path": "lib64/libC2D2.so",
+   "size": 194040,
+   "git_blob": "42594facf735a4b43a56b93d305bd3d1e9bbb44b",
+   "sha256": "f75eda900882c790e0f95a833777cd624a9f71cd9a0425f7ee7d81ab9b61ab02",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "libgsl.so",
+    "libcutils.so",
+    "libutils.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+   ]
+  },
+  {
+   "path": "lib64/hw/gralloc.msm8953.so",
+   "size": 71856,
+   "git_blob": "c67e24b26191e51f9a39f9986a680abb130b6eac",
+   "sha256": "719edb03640c97a060e30f70e74df14d68b733a169c7edc0208458f2befab04d",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "liblog.so",
+    "libutils.so",
+    "libcutils.so",
+    "libhardware.so",
+    "libqdMetaData.so",
+    "libsync.so",
+    "libgrallocutils.so",
+    "android.hardware.graphics.common@1.1.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+   ],
+   "soname": [
+    "gralloc.msm8953.so"
+   ]
+  },
+  {
+   "path": "lib64/libqdMetaData.so",
+   "size": 24224,
+   "git_blob": "67cc0298ef9eea2d06631ca7fff2fb60a592b20e",
+   "sha256": "05cf92cb7d508ec51c2e1fedaa9ea6b9592c74b9723e607ec2a1422070a4d7d9",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "liblog.so",
+    "libcutils.so",
+    "libutils.so",
+    "libhidlbase.so",
+    "libgralloc.qti.so",
+    "libgralloctypes.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+   ],
+   "soname": [
+    "libqdMetaData.so"
+   ]
+  },
+  {
+   "path": "lib64/libgralloc.qti.so",
+   "size": 28752,
+   "git_blob": "e52470900384fd64203d84f5cacbfd2b10a26502",
+   "sha256": "29baee06de9a6bbf2b698bef57b00968022eb3fff5b663c68381e71df723e032",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "liblog.so",
+    "libcutils.so",
+    "libutils.so",
+    "libgralloctypes.so",
+    "libhidlbase.so",
+    "libhardware.so",
+    "android.hardware.graphics.mapper@4.0.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+   ],
+   "soname": [
+    "libgralloc.qti.so"
+   ]
+  },
+  {
+   "path": "lib64/libgrallocutils.so",
+   "size": 32448,
+   "git_blob": "f1cbfd83de01a2e7874584e54c08597d2f2eb4ee",
+   "sha256": "ac3d8a91ea1e93da5e96ce37c1cc6141583fb26db80a9a3d6e1bc09ca0ee407a",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "liblog.so",
+    "libutils.so",
+    "libcutils.so",
+    "libhardware.so",
+    "libqdMetaData.so",
+    "android.hardware.graphics.common@1.1.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+   ],
+   "soname": [
+    "libgrallocutils.so"
+   ]
+  },
+  {
+   "path": "lib64/hw/hwcomposer.msm8953.so",
+   "size": 280048,
+   "git_blob": "ce2883b8c97a1f453d644af599d2a3108585b2bf",
+   "sha256": "864c9e222bb89556987c99d3381730787eeeafe24e9b87ece369dea016dc53d7",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "libsdmcore.so",
+    "libqservice.so",
+    "libbinder.so",
+    "libhardware.so",
+    "libhardware_legacy.so",
+    "libutils.so",
+    "libcutils.so",
+    "libsync.so",
+    "libqdutils.so",
+    "libqdMetaData.so",
+    "libdrmutils.so",
+    "libsdmutils.so",
+    "libc++.so",
+    "liblog.so",
+    "libgrallocutils.so",
+    "vendor.display.config@2.0.so",
+    "libhidlbase.so",
+    "libhidltransport.so",
+    "libdisplayconfig.qti.so",
+    "libui.so",
+    "libgpu_tonemapper.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+   ],
+   "soname": [
+    "hwcomposer.msm8953.so"
+   ]
+  },
+  {
+   "path": "lib64/libsdmcore.so",
+   "size": 403160,
+   "git_blob": "29b3ca19a7fbed555124e44606b771a3a961461a",
+   "sha256": "61464b751fa794abcc93439e04f1336775a300d0ccaaa4e0b81d2a94efdfce34",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "libsdmutils.so",
+    "libdrm.so",
+    "libdrmutils.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+   ],
+   "soname": [
+    "libsdmcore.so"
+   ]
+  },
+  {
+   "path": "lib64/libsdmutils.so",
+   "size": 24440,
+   "git_blob": "46cc507c152b1df8239a820d46eac098c57beead",
+   "sha256": "0123b8e011a9aa914182a41ce822788c49e6954187f5b212f63f3e6af59c7ca9",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+   ],
+   "soname": [
+    "libsdmutils.so"
+   ]
+  },
+  {
+   "path": "lib64/libdisplayconfig.qti.so",
+   "size": 106312,
+   "git_blob": "3776f13f772351b0da24988b054be05931d7db81",
+   "sha256": "bbb0fd6461f1d3f308004e3a2d718e414c8066910039c5faaa8526d4825822f2",
+   "bits": 64,
+   "machine": 183,
+   "needed": [
+    "liblog.so",
+    "libhidlbase.so",
+    "libutils.so",
+    "vendor.display.config@2.0.so",
+    "libc++.so",
+    "libc.so",
+    "libm.so",
+    "libdl.so"
+   ],
+   "soname": [
+    "libdisplayconfig.qti.so"
+   ]
+  }
+ ]
 }

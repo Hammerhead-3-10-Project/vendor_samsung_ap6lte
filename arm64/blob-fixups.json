@@ -1,4 +1,63 @@
 {
-  "patchelf_version": "0.18.0",
-  "fixups": []
+ "patchelf_version": "0.18.0",
+ "fixups": [
+  {
+   "path": "lib64/libqdMetaData.so",
+   "source_sha256": "05cf92cb7d508ec51c2e1fedaa9ea6b9592c74b9723e607ec2a1422070a4d7d9",
+   "patched_sha256": "34c833a37ecb3cd500f5eb19f2db4d9e2ee27e2117f58e6f9761df9afc9b88f1",
+   "install_path": "lib64/libqdMetaData_a11.so",
+   "set_soname": "libqdMetaData_a11.so"
+  },
+  {
+   "path": "lib64/libgrallocutils.so",
+   "source_sha256": "ac3d8a91ea1e93da5e96ce37c1cc6141583fb26db80a9a3d6e1bc09ca0ee407a",
+   "patched_sha256": "5e80d4c566ffc361b377609dfde5ca67d7e7c69fcf497830044c2caef50b449e",
+   "install_path": "lib64/libgrallocutils_a11.so",
+   "set_soname": "libgrallocutils_a11.so",
+   "replace_needed": {
+    "libqdMetaData.so": "libqdMetaData_a11.so"
+   }
+  },
+  {
+   "path": "lib64/libsdmcore.so",
+   "source_sha256": "61464b751fa794abcc93439e04f1336775a300d0ccaaa4e0b81d2a94efdfce34",
+   "patched_sha256": "11500deb8d8530a89467fb69dd10adcb9bea5b66499893712803a7b0b45cb003",
+   "install_path": "lib64/libsdmcore_a11.so",
+   "set_soname": "libsdmcore_a11.so",
+   "replace_needed": {
+    "libsdmutils.so": "libsdmutils_a11.so"
+   }
+  },
+  {
+   "path": "lib64/libsdmutils.so",
+   "source_sha256": "0123b8e011a9aa914182a41ce822788c49e6954187f5b212f63f3e6af59c7ca9",
+   "patched_sha256": "3c5805293eb3675230f2aade9f4928f2fac8be92c59984b8055eab931cf29a81",
+   "install_path": "lib64/libsdmutils_a11.so",
+   "set_soname": "libsdmutils_a11.so"
+  },
+  {
+   "path": "lib64/hw/gralloc.msm8953.so",
+   "source_sha256": "719edb03640c97a060e30f70e74df14d68b733a169c7edc0208458f2befab04d",
+   "patched_sha256": "6439be1cb3e0a4aa86daf4ec9ea1e2f01085ba872544d400a5b027be30cc035a",
+   "install_path": "lib64/hw/gralloc.a11.so",
+   "replace_needed": {
+    "libqdMetaData.so": "libqdMetaData_a11.so",
+    "libgrallocutils.so": "libgrallocutils_a11.so"
+   },
+   "set_soname": "gralloc.a11.so"
+  },
+  {
+   "path": "lib64/hw/hwcomposer.msm8953.so",
+   "source_sha256": "864c9e222bb89556987c99d3381730787eeeafe24e9b87ece369dea016dc53d7",
+   "patched_sha256": "c344c9b8232abb26060e240f471faf26d5f5b47041b7f71eb202549d1736b83c",
+   "install_path": "lib64/hw/hwcomposer.a11.so",
+   "replace_needed": {
+    "libsdmcore.so": "libsdmcore_a11.so",
+    "libqdMetaData.so": "libqdMetaData_a11.so",
+    "libsdmutils.so": "libsdmutils_a11.so",
+    "libgrallocutils.so": "libgrallocutils_a11.so"
+   },
+   "set_soname": "hwcomposer.a11.so"
+  }
+ ]
 }

@@ -14,7 +14,8 @@ def main():
     args = parser.parse_args()
     manifest = json.loads((ROOT / 'selected-blobs.json').read_text())
     if args.inputs:
-        print(' '.join(e['path'] for e in manifest['files']))
+        fix = {f['path']: f for f in json.loads((ROOT / 'blob-fixups.json').read_text())['fixups']}
+        print(' '.join(fix.get(e['path'], {}).get('install_path', e['path']) for e in manifest['files']))
         return
     fixups = {f['path']: f for f in json.loads((ROOT / 'blob-fixups.json').read_text())['fixups']}
     for entry in manifest['files']:
@@ -23,7 +24,7 @@ def main():
         if fixup and fixup['source_sha256'] != entry['sha256']:
             raise RuntimeError('Fixup source fingerprint mismatch: ' + relative)
         expected = fixup['patched_sha256'] if fixup else entry['sha256']
-        data = (ROOT / 'blobs' / relative).read_bytes()
+        data = (ROOT / 'blobs' / (fixup.get('install_path', relative) if fixup else relative)).read_bytes()
         if (data[:6] != b'\x7fELF\x02\x01' or int.from_bytes(data[18:20], 'little') != 183
                 or hashlib.sha256(data).hexdigest() != expected):
             raise RuntimeError('ARM64 blob integrity/architecture mismatch: ' + relative)
