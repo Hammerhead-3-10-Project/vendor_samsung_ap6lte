@@ -158,6 +158,15 @@ def generate(src, dst, LINEAGE_OUT, RAMDISK_SRC):
     for c in list(copies):
         if c.startswith('etc/vintf/'):
             copies.remove(c); overlay.append(c)
+    # PE 11's host_init_verifier rejects init scripts that name HIDL interfaces the tree does not define (vendor.samsung.*,
+    # wigig netperftuner) or use the removed load_system_props. They are stock files and stay untouched: the overlay step
+    # installs them, so the verification is skipped for them only.
+    import re as _re
+    rc_unknown = _re.compile(r'^\s*(interface\s+vendor\.(samsung|qti\.hardware\.wigig)|load_system_props)', _re.M)
+    for c in list(copies):
+        if c.startswith('etc/init/') and c.endswith('.rc') and rc_unknown.search(
+                Path(dst, 'proprietary', 'vendor', c).read_text(errors='replace')):
+            copies.remove(c); overlay.append(c)
     before = len(links)
     links = [(p, t) for p, t in links if not (os.path.basename(t) in LINK_TARGETS_LINEAGE)]
     dropped_links = before - len(links)

@@ -212,15 +212,12 @@ PRODUCT_COPY_FILES += \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/android.hardware.media.omx@1.0-service_qcom.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.media.omx@1.0-service_qcom.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/cass.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/cass.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/dataadpl.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/dataadpl.rc \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/hostapd.android.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hostapd.android.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/hw/init.a6plte.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.a6plte.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/hw/init.msm.usb.configfs.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.msm.usb.configfs.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/hw/init.qcom.factory.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.factory.rc \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/hw/init.qcom.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/hw/init.qcom.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.usb.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/hw/init.samsung.bsp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.samsung.bsp.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/hw/init.samsung.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.samsung.rc \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/hw/init.target.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.target.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/icd_over_five_vendor.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/icd_over_five_vendor.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/init-qcril-data.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init-qcril-data.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/init.qti.fm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.qti.fm.rc \
@@ -247,17 +244,10 @@ PRODUCT_COPY_FILES += \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/vendor.qti.tftp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.qti.tftp.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/vendor.samsung.hardware.base@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.samsung.hardware.base@1.0-service.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/vendor.samsung.hardware.biometrics.fingerprint@3.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.samsung.hardware.biometrics.fingerprint@3.0-service.rc \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/vendor.samsung.hardware.camera.provider@3.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.samsung.hardware.camera.provider@3.0-service.rc \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/vendor.samsung.hardware.light@3.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.samsung.hardware.light@3.0-service.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/vendor.samsung.hardware.media.converter@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.samsung.hardware.media.converter@1.0-service.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/vendor.samsung.hardware.miscpower@2.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.samsung.hardware.miscpower@2.0-service.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/vendor.samsung.hardware.security.widevine.keyprovisioning@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.samsung.hardware.security.widevine.keyprovisioning@1.0-service.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/vendor.samsung.hardware.snap@1.1-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.samsung.hardware.snap@1.1-service.rc \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/vendor.samsung.hardware.tlc.atn@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.samsung.hardware.tlc.atn@1.0-service.rc \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/vendor.samsung.hardware.tlc.iccc@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.samsung.hardware.tlc.iccc@1.0-service.rc \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/vendor.samsung.hardware.tlc.payment@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.samsung.hardware.tlc.payment@1.0-service.rc \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/vendor.samsung.hardware.tlc.tima@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.samsung.hardware.tlc.tima@1.0-service.rc \
-    $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/vendor.samsung.hardware.tlc.ucm@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.samsung.hardware.tlc.ucm@1.0-service.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/vendor.samsung.hardware.vibrator@2.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.samsung.hardware.vibrator@2.0-service.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/vendor.samsung.hardware.wifi@2.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.samsung.hardware.wifi@2.0-service.rc \
     $(A6PLTE_VENDOR_PATH)/proprietary/vendor/etc/init/vendor.trustonic.tee@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.trustonic.tee@1.0-service.rc \

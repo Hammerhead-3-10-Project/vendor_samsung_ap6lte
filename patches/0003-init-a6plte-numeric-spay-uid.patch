@@ -1,0 +1,14 @@
+--- a/etc/init/hw/init.a6plte.rc
++++ b/etc/init/hw/init.a6plte.rc
+@@ -1,9 +1,9 @@
+ on post-fs-data
+ 
+ # Samsung Pay
+-    mkdir /efs/pfw_data 0760 spay spay
++    mkdir /efs/pfw_data 0760 1200 1200
+ 
+ # MST/NFC Switch
+-    chown spay system /dev/mst_ctrl
++    chown 1200 system /dev/mst_ctrl
+     chmod 0660 /dev/mst_ctrl
+ 
