@@ -1,4 +1,0 @@
-{
-    global: atrace_get_enabled_tags;
-    local: *;
-};

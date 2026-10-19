@@ -43,7 +43,7 @@ cc_prebuilt_library_shared {
     check_elf_files: true,
     stem: "libGLESv2_adreno",
     srcs: ["blobs/lib64/egl/libGLESv2_adreno.so"],
-    shared_libs: ["liba6plte_atrace_compat", "a6plte_arm64_libadreno_utils", "a6plte_arm64_libgsl", "a6plte_arm64_libllvm-glnext", "libcutils", "libz", "liblog", "libc++"],
+    shared_libs: ["a6plte_arm64_libadreno_utils", "a6plte_arm64_libgsl", "a6plte_arm64_libllvm-glnext", "libcutils", "libz", "liblog", "libc++"],
     relative_install_path: "egl",
 }
 
@@ -73,7 +73,7 @@ cc_prebuilt_library_shared {
     check_elf_files: true,
     stem: "vulkan.adreno",
     srcs: ["blobs/lib64/hw/vulkan.adreno.so"],
-    shared_libs: ["liba6plte_atrace_compat", "a6plte_arm64_libadreno_utils", "a6plte_arm64_libgsl", "libz", "liblog", "a6plte_arm64_libllvm-glnext", "libcutils", "libhardware", "libnativewindow", "libc++"],
+    shared_libs: ["a6plte_arm64_libadreno_utils", "a6plte_arm64_libgsl", "libz", "liblog", "a6plte_arm64_libllvm-glnext", "libcutils", "libhardware", "libnativewindow", "libc++"],
     relative_install_path: "hw",
 }
 
@@ -83,7 +83,7 @@ cc_prebuilt_library_shared {
     check_elf_files: true,
     stem: "libCB",
     srcs: ["blobs/lib64/libCB.so"],
-    shared_libs: ["liba6plte_atrace_compat", "libcutils", "liblog", "a6plte_arm64_libgsl", "libutils", "libvndksupport", "libc++"],
+    shared_libs: ["libcutils", "liblog", "a6plte_arm64_libgsl", "libutils", "libvndksupport", "libc++"],
 }
 
 cc_prebuilt_library_shared {
@@ -146,16 +146,7 @@ cc_prebuilt_library_shared {
     check_elf_files: true,
     stem: "libC2D2",
     srcs: ["blobs/lib64/libC2D2.so"],
-    shared_libs: ["liba6plte_atrace_compat", "a6plte_arm64_libgsl", "libcutils", "libutils", "libc++"],
+    shared_libs: ["a6plte_arm64_libgsl", "libcutils", "libutils", "libc++"],
 }
 
 // Export the Android 10 inline tracing API for Android 11 Adreno clients.
-cc_library_shared {
-    name: "liba6plte_atrace_compat",
-    vendor: true,
-    compile_multilib: "64",
-    srcs: ["atrace_compat.cpp"],
-    shared_libs: ["libcutils"],
-    stl: "none",
-    version_script: "atrace_compat.map",
-}

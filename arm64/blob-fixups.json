@@ -1,33 +1,4 @@
 {
   "patchelf_version": "0.18.0",
-  "fixups": [
-    {
-      "path": "lib64/egl/libGLESv2_adreno.so",
-      "source_sha256": "92fa9b131dac2b87cd44bff5f474412154cca4751b9d6af8ff52a8c10b4294da",
-      "patched_sha256": "089a0c473ee67546a5db9c6c05610378e313dc812221eb021a9a7b4bd918ffda",
-      "add_needed": "liba6plte_atrace_compat.so",
-      "executable_sections_unchanged": true
-    },
-    {
-      "path": "lib64/hw/vulkan.adreno.so",
-      "source_sha256": "784e6c5b7ca669765524aa491d29d7f8a0f766bbc9d037b504f05ab565d44dc7",
-      "patched_sha256": "0c5a1915d4ed76fdc5e8dcd792966f09de090e400c16a571bb2ce5977b4e80b2",
-      "add_needed": "liba6plte_atrace_compat.so",
-      "executable_sections_unchanged": true
-    },
-    {
-      "path": "lib64/libCB.so",
-      "source_sha256": "dabd103f0cdad085414685a4f7544b4059424b18c517516ef98a90ec5e5d2333",
-      "patched_sha256": "f4e78f8b52f35bee8930769e908ff5df5b90baf5b5ec7fffa7ff9bd8800f51c3",
-      "add_needed": "liba6plte_atrace_compat.so",
-      "executable_sections_unchanged": true
-    },
-    {
-      "path": "lib64/libC2D2.so",
-      "source_sha256": "f75eda900882c790e0f95a833777cd624a9f71cd9a0425f7ee7d81ab9b61ab02",
-      "patched_sha256": "da0083bcdab106de5cf9069545dd20ef77e91a3ead734724c32a3c50ff99bde5",
-      "add_needed": "liba6plte_atrace_compat.so",
-      "executable_sections_unchanged": true
-    }
-  ]
+  "fixups": []
 }
