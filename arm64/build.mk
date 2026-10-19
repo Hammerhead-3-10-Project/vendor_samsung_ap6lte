@@ -1,9 +1,13 @@
-# Use source-built ARM64 graphics services; preserve all stock ARM32 libraries.
+# Use source-built ARM64 graphics/configstore services; preserve stock ARM32 libraries.
+# The generated configstore seccomp policy uses TARGET_ARCH. Overlaying Samsung's
+# ARM32 executable would terminate it on fstat64 and block SurfaceFlinger startup.
 a6plte_overlay_files := $(filter-out \
+    bin/hw/android.hardware.configstore@1.1-service \
     bin/hw/android.hardware.graphics.allocator@2.0-service \
     bin/hw/android.hardware.graphics.composer@2.1-service \
     etc/init/android.hardware.graphics.allocator@2.0-service.rc \
-    etc/init/android.hardware.graphics.composer@2.1-service.rc, \
+    etc/init/android.hardware.graphics.composer@2.1-service.rc \
+    etc/init/android.hardware.configstore@1.1-service.rc, \
     $(a6plte_overlay_files))
 
 include $(LOCAL_PATH)/arm64/modules.mk
