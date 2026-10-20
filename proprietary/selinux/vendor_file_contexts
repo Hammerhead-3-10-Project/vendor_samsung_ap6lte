@@ -1838,3 +1838,5 @@
 /sys/devices/platform/14360000\.hsi2c/i2c-15/15-0066/max77705-usbc/dual_role_usb/otg_default/data_role		u:object_r:sysfs_usb:s0
 
 /(vendor|system/vendor)/bin/hw/vendor\.qti\.hardware\.capabilityconfigstore@1\.0-service u:object_r:hal_capabilityconfigstore_qti_default_exec:s0
+# Bridge library of the ARM64 Adreno blobs (arm64/atrace_compat.cpp): loaded into surfaceflinger/apps together with the GL driver
+/vendor/lib(64)?/liba6plte_atrace_compat\.so		u:object_r:same_process_hal_file:s0
