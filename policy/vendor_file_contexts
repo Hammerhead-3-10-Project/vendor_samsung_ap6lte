@@ -1,3 +1,8 @@
 /(vendor|system/vendor)/bin/hw/vendor\.qti\.hardware\.capabilityconfigstore@1\.0-service u:object_r:hal_capabilityconfigstore_qti_default_exec:s0
 # Bridge library of the ARM64 Adreno blobs (arm64/atrace_compat.cpp): loaded into surfaceflinger/apps together with the GL driver
 /vendor/lib(64)?/liba6plte_atrace_compat\.so		u:object_r:same_process_hal_file:s0
+# Android 11 donor gralloc stack (renamed *_a11 to avoid the CAF modules): loaded in-process by surfaceflinger and apps
+/vendor/lib(64)?/hw/gralloc\.a11\.so		u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/libgralloc\.qti\.so		u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/libgrallocutils_a11\.so		u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/libqdMetaData_a11\.so		u:object_r:same_process_hal_file:s0
