@@ -47,3 +47,10 @@
 (typeattribute a6plte_non_capabilityconfigstore_domains)
 (typeattributeset a6plte_non_capabilityconfigstore_domains (and (domain) (not (hal_capabilityconfigstore_qti_default))))
 (neverallow a6plte_non_capabilityconfigstore_domains hal_capabilityconfigstore_qti_hwservice (hwservice_manager (add)))
+
+; The stock vendor labels /config/usb_gadget as usb_configfs, which the A11 platform rules for
+; hal_usb_gadget_server (written for the plain configfs type) do not cover. Without them the AOSP
+; USB gadget HAL aborts in its constructor and system_server blocks in UsbService.onBootPhase.
+(allow hal_usb_gadget_qti usb_configfs (dir (open read write getattr setattr search add_name remove_name create rmdir ioctl lock)))
+(allow hal_usb_gadget_qti usb_configfs (file (open read write getattr setattr create append ioctl lock map)))
+(allow hal_usb_gadget_qti usb_configfs (lnk_file (read create unlink getattr)))
