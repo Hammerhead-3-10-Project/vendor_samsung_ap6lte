@@ -135,3 +135,6 @@ ro.vendor.epdg.support=true
 ro.logdumpd.enabled=0
 persist.sys.usb.config=mtp
 persist.sys.dalvik.vm.lib.2=libart.so
+# Graphics stack variant (Android 11 donor gralloc/composer).
+ro.hardware.gralloc=a11
+ro.hardware.hwcomposer=a11

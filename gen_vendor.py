@@ -175,6 +175,12 @@ def generate(src, dst, LINEAGE_OUT, RAMDISK_SRC):
     before = len(links)
     links = [(p, t) for p, t in links if not (os.path.basename(t) in LINK_TARGETS_LINEAGE)]
     dropped_links = before - len(links)
+    # Android 10 vendor services ask for libprotobuf-cpp-lite.so; the Android 11 vendor variant is installed with the
+    # versioned name only (same library, protobuf 3.9.1), so alias it.
+    for lib in ('lib', 'lib64'):
+        l = (lib + '/libprotobuf-cpp-lite.so', 'libprotobuf-cpp-lite-3.9.1.so')
+        if l not in links:
+            links.append(l)
     links.sort(); dirs.sort(); copies.sort(); overlay.sort()
 
     with open(os.path.join(dst, 'links.list'), 'w') as f:
@@ -229,6 +235,12 @@ def generate(src, dst, LINEAGE_OUT, RAMDISK_SRC):
                 continue
             seen.add(k)
             f.write(l + '\n')
+        # Android 11 donor graphics stack (renamed *_a11): hw_get_module tries these first and falls back to
+        # ro.board.platform, so the 32-bit stock HALs keep loading *.msm8953. PRODUCT_VENDOR_PROPERTIES does not
+        # reach vendor/build.prop in this tree, hence they live here.
+        f.write('# Graphics stack variant (Android 11 donor gralloc/composer).\n')
+        f.write('ro.hardware.gralloc=a11\n')
+        f.write('ro.hardware.hwcomposer=a11\n')
 
     # Android.mk: the SELinux files and the links/dirs module
     with open(os.path.join(dst, 'Android.mk'), 'w') as f:
