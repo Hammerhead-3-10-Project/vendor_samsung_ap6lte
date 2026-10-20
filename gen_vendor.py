@@ -273,7 +273,7 @@ $(a6plte_overlay_stamp): $(addprefix $(LOCAL_PATH)/proprietary/vendor/,$(a6plte_
 \t@echo "Samsung vendor files over the generated ones: $(words $(PRIVATE_OVERLAY)) + $(words $(PRIVATE_SELINUX)) SELinux"
 \t$(hide) mkdir -p $(PRIVATE_DST)/etc/selinux $(dir $@)
 \t$(hide) for f in $(PRIVATE_OVERLAY); do mkdir -p $(PRIVATE_DST)/$$(dirname $$f); rm -f $(PRIVATE_DST)/$$f; cp -p $(PRIVATE_SRC)/vendor/$$f $(PRIVATE_DST)/$$f; done
-\t$(hide) for f in $(PRIVATE_SELINUX); do rm -f $(PRIVATE_DST)/etc/selinux/$$f; cp $(PRIVATE_SRC)/selinux/$$f $(PRIVATE_DST)/etc/selinux/$$f; done
+\t$(hide) for f in $(wildcard $(LOCAL_PATH)/a10-compat/lib/*.so); do cp -p $$f $(PRIVATE_DST)/lib/$$(basename $$f); done\n\t$(hide) for f in $(PRIVATE_SELINUX); do rm -f $(PRIVATE_DST)/etc/selinux/$$f; cp $(PRIVATE_SRC)/selinux/$$f $(PRIVATE_DST)/etc/selinux/$$f; done
 \t$(hide) for f in $(PRIVATE_REMOVE); do rm -f $(PRIVATE_DST)/$$f; done
 \t$(hide) touch $@
 $(PRODUCT_OUT)/vendor.img: $(a6plte_overlay_stamp)
