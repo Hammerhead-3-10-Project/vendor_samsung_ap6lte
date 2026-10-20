@@ -78,7 +78,8 @@ def generate(src, dst, LINEAGE_OUT, RAMDISK_SRC):
     # init scripts the Lineage build installs that define a service the stock vendor already defines (same name, other
     # arguments/groups). init reads /vendor/etc/init in alphabetical order and ignores the later duplicate, which would
     # make Lineage's (weaker) definition win for vendor.media.omx. They are removed by the copy step.
-    LINEAGE_REMOVE = ['etc/init/rild.legacy.rc', 'etc/init/android.hardware.media.omx@1.0-service.rc']
+    LINEAGE_REMOVE = ['etc/init/rild.legacy.rc', 'etc/init/android.hardware.media.omx@1.0-service.rc',
+                      'etc/vintf/manifest/android.hardware.cas@1.1-service.xml', 'etc/init/android.hardware.cas@1.1-service.rc', 'bin/hw/android.hardware.cas@1.1-service']   # PE11 builds its own cas@1.2 service: the stock 1.1 one would conflict in the VINTF manifest
     LINK_TARGETS_LINEAGE = {'toybox_vendor', 'toolbox', 'grep'}   # the toybox applet links are created by the toybox_vendor module
 
     # properties the build writes into vendor/build.prop itself
@@ -87,7 +88,8 @@ def generate(src, dst, LINEAGE_OUT, RAMDISK_SRC):
                        'ro.vendor.build.version.sdk', 'ro.vendor.build.security_patch',   # VENDOR_SECURITY_PATCH
                        'ro.product.vendor.', 'ro.vendor.product.cpu.', 'ro.bootimage.build.',
                        'ro.product.first_api_level', 'ro.product.board', 'ro.board.platform',
-                       'ro.bionic.', 'dalvik.vm.isa.')
+                       'ro.bionic.', 'dalvik.vm.isa.',
+                       'ro.vndk.lite')   # the vendor is not VNDK-lite: its libraries come from the VNDK 29 APEX
     # NOT generated and kept: ro.vendor.build.version.sehi (Samsung)
 
     copies, overlay, skipped_aosp, selinux, links, dirs = [], [], [], [], [], []

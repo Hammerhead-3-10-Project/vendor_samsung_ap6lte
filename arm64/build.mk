@@ -47,4 +47,4 @@ include $$(BUILD_PREBUILT)
 endef
 $(eval $(call a6plte-arm64-donor-lib,a6plte_arm64_libsdmutils,libsdmutils_a11,,libc++))
 $(eval $(call a6plte-arm64-donor-lib,a6plte_arm64_libsdmcore,libsdmcore_a11,,a6plte_arm64_libsdmutils libdrm libdrmutils libc++))
-$(eval $(call a6plte-arm64-donor-lib,a6plte_arm64_hwcomposer.msm8953,hwcomposer.a11,hw/,a6plte_arm64_libsdmcore a6plte_arm64_libsdmutils a6plte_arm64_libqdMetaData a6plte_arm64_libgrallocutils libqservice libbinder libhardware libhardware_legacy libutils libcutils libsync libqdutils libdrmutils libc++ liblog vendor.display.config@2.0 libhidlbase libhidltransport a6plte_arm64_libdisplayconfig.qti libui libgpu_tonemapper))
+$(eval $(call a6plte-arm64-donor-lib,a6plte_arm64_hwcomposer.msm8953,hwcomposer.a11,hw/,liba6plte_atrace_compat a6plte_arm64_libsdmcore a6plte_arm64_libsdmutils a6plte_arm64_libqdMetaData a6plte_arm64_libgrallocutils libqservice libbinder libhardware libhardware_legacy libutils libcutils libsync libqdutils libdrmutils libc++ liblog vendor.display.config@2.0 libhidlbase libhidltransport a6plte_arm64_libdisplayconfig.qti libui libgpu_tonemapper))

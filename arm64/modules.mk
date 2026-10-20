@@ -22,4 +22,5 @@ A6PLTE_ARM64_PREBUILT_MODULES := \
     a6plte_arm64_libsdmutils \
     a6plte_arm64_libsdmcore \
     a6plte_arm64_libdisplayconfig.qti \
-    a6plte_arm64_hwcomposer.msm8953
+    a6plte_arm64_hwcomposer.msm8953 \
+    liba6plte_atrace_compat
