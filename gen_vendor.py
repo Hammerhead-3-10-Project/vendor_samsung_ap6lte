@@ -89,7 +89,10 @@ def generate(src, dst, LINEAGE_OUT, RAMDISK_SRC):
                        'ro.product.vendor.', 'ro.vendor.product.cpu.', 'ro.bootimage.build.',
                        'ro.product.first_api_level', 'ro.product.board', 'ro.board.platform',
                        'ro.bionic.', 'dalvik.vm.isa.',
-                       'ro.vndk.lite')   # the vendor is not VNDK-lite: its libraries come from the VNDK 29 APEX
+                       'ro.vndk.lite',
+                       # the build writes ro.vndk.version (BOARD_VNDK_VERSION=current -> 30): the stock 29 would make the
+                       # vendor look for the v29 APEX while the vendor modules built from source link against the 30 VNDK
+                       'ro.vndk.version')
     # NOT generated and kept: ro.vendor.build.version.sehi (Samsung)
 
     copies, overlay, skipped_aosp, selinux, links, dirs = [], [], [], [], [], []

@@ -126,7 +126,6 @@ ro.config.dha_empty_max=16
 ro.config.upgrade_pressure=65
 ro.config.freelimit_val=15
 ro.config.vc_call_vol_steps=5
-ro.vndk.version=29
 ro.adb.secure=1
 ro.oem_unlock_supported=1
 ro.logd.size.stats=64K
