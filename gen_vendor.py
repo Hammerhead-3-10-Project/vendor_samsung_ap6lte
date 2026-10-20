@@ -74,7 +74,10 @@ def generate(src, dst, LINEAGE_OUT, RAMDISK_SRC):
     # the stock copies are not used, Lineage's are.
     LINEAGE_WINS = {'bin/awk', 'bin/grep', 'bin/sh', 'bin/toolbox', 'bin/toybox_vendor', 'bin/logwrapper', 'bin/dumpsys',
                     'bin/cplay', 'bin/vndservice', 'bin/vndservicemanager', 'etc/init/vndservicemanager.rc', 'etc/mkshrc',
-                    'etc/passwd', 'etc/group', 'etc/NOTICE.xml.gz', 'etc/permissions/handheld_core_hardware.xml'}
+                    'etc/passwd', 'etc/group', 'etc/NOTICE.xml.gz', 'etc/permissions/handheld_core_hardware.xml',
+                    # Android 11 ships these two in the VNDK (v30). The stock A10 copies shadow them in /vendor/lib and lack
+                    # symbols the A11 omx/media code needs (MEDIA_MIMETYPE_AUDIO_IMA, MediaCodecsXmlParser::getDefaultXmlNames)
+                    'lib/libstagefright_omx_utils.so', 'lib/libstagefright_xmlparser.so'}
     # init scripts the Lineage build installs that define a service the stock vendor already defines (same name, other
     # arguments/groups). init reads /vendor/etc/init in alphabetical order and ignores the later duplicate, which would
     # make Lineage's (weaker) definition win for vendor.media.omx. They are removed by the copy step.

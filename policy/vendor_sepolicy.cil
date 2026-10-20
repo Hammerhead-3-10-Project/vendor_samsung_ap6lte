@@ -54,3 +54,20 @@
 (allow hal_usb_gadget_qti usb_configfs (dir (open read write getattr setattr search add_name remove_name create rmdir ioctl lock)))
 (allow hal_usb_gadget_qti usb_configfs (file (open read write getattr setattr create append ioctl lock map)))
 (allow hal_usb_gadget_qti usb_configfs (lnk_file (read create unlink getattr)))
+
+; Denials seen at boot on PE11 that block something real (platform types are the _29_0 names here).
+; Samsung snap HAL clients: snap_hidl looks up its own ISehSnap service.
+(allow snap_hidl snap_hwservice (hwservice_manager (find)))
+; thermal-engine enumerates /sys/devices/virtual (thermal zones, devfreq) to find its sensors.
+(allow thermal-engine sysfs_29_0 (dir (open read search getattr)))
+; health HAL reads power_supply "type" files that carry the generic sysfs label.
+(allow hal_health_default sysfs_29_0 (dir (open read search getattr)))
+(allow hal_health_default sysfs_29_0 (file (open read getattr)))
+; camera daemon reads the video node names under sysfs_graphics.
+(allow mm-qcamerad sysfs_graphics (file (getattr)))
+; audio HAL and ipacm open the diag node for logging.
+(allow hal_audio_default diag_device (chr_file (open read write ioctl getattr)))
+(allow ipacm-diag diag_device (chr_file (open read write ioctl getattr)))
+; SurfaceFlinger's GPU driver looks in /vendor/firmware for the Adreno zap/microcode files.
+(allow surfaceflinger_29_0 vendor_firmware_file (dir (search getattr)))
+(allow surfaceflinger_29_0 vendor_firmware_file (file (open read getattr map)))
